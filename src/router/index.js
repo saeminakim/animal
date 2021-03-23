@@ -6,9 +6,39 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
+    path: '/home',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/',
+    name: 'AbandonedAnimal',
+    component: () => import('../views/AbandonedAnimal.vue')
+  },
+  {
+    path: '/AnimalList',
+    name: 'AnimalList',
+    component: () => import('../views/AnimalList.vue')
+  },
+  {
+    path: '/lostandfoundanimal',
+    name: 'LostAndFoundAnimal',
+    component: () => import('../views/LostAndFoundAnimal.vue')
+  },
+  {
+    path: '/reviewmain',
+    name: 'ReviewMain',
+    component: () => import('../views/ReviewMain.vue')
+  },
+  {
+    path: '/Request',
+    name: 'Request',
+    component: () => import('../views/Request.vue')
+  },
+  {
+    path: '/manager',
+    name: 'Manager',
+    component: () => import('../views/Manager.vue')
   },
   {
     path: '/about',

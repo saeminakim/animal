@@ -1,53 +1,52 @@
 <template>
   <v-app>
-    <v-tool-bar
-      app
-      color="#C7AD7F"
-      class="ml-0"
-      height="270px"
-    >
-      <!-- <div class="d-flex align-center ma-0"> -->
-        <img
-          alt="background"
-          contain
-          src="./assets/header.jpg"
-        />
-      <!-- </div> -->
 
-      <!-- <v-spacer></v-spacer> -->
-        <!-- <span class="mr-2">관리자</span>
-        <v-icon>mdi-open-in-new</v-icon> -->
-    </v-tool-bar>
+    <div class="header">
+      <img src="./assets/header.jpg">
+    </div>
 
     <v-main>
       <v-row justify="center">
 
         <v-btn value="left"
-        v-for="(item, i) in items" :key="i" @click="navigateTo(item)" 
-          width="250px"
+          v-for="(item, i) in items" :key="i" @click="navigateTo(item)" 
+          width="20%"
           height="70px"
-          size="50px"
-
+          text
           >
           <h2 v-text="item.text">
-
           </h2>
         </v-btn>
-
-
       </v-row>
       <router-view></router-view>
     </v-main>
   </v-app>
 </template>
 
+<style lang="scss">
+
+
+.header{
+  overflow: hidden;
+  width: 100%;
+  height: auto;
+
+  img {
+    width:100%;
+    vertical-align: top;
+  }
+}
+
+.row {
+  margin: 0 !important;
+}
+
+</style>
+
+
 <script>
-
-export default {
+export default{
   name: 'App',
-
- 
-
   data: () => ({
     //
     drawer: false, // drawer의 기본 값
@@ -57,7 +56,6 @@ export default {
         { text: '유기동물', icon: 'mdi-home', path: '/' },
         { text: '분실/보호동물', icon: 'mdi-contacts', path: '/LostAndFoundAnimal' },
         { text: '입양후기', icon: 'mdi-forum', path: '/ReviewMain' },
-        { text: '신청내역조회', icon: 'mdi-format-list-checks', path: '/request' },
         { text: '관리자', icon: 'mdi-format-list-checks', path: '/manager' },
 
       ],
