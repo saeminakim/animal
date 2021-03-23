@@ -2,12 +2,13 @@
   <menu-tabs></menu-tabs>
 </template>
 
+<template>
+
+</template>
+
 <script>
-import menuTabs from '@/components/menuTabs.vue'
 
 export default {
-  components: {
-    menuTabs
-  },
+
 }
 </script>

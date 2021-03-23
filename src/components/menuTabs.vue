@@ -12,7 +12,6 @@
 
 <script>
 export default {
-  name: "menu-tabs",
   data () {
     return {
       menus: [
