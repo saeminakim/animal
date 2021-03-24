@@ -11,9 +11,15 @@ const routes = [
     component: Home
   },
   {
+    path: '/AnimalDetails',
+    name: 'AnimalDetails',
+    component: () => import('../views/AnimalDetails.vue'),
+    props: true,
+  },
+  {
     path: '/',
-    name: 'AbandonedAnimal',
-    component: () => import('../views/AbandonedAnimal.vue')
+    name: 'AnimalList',
+    component: () => import('../views/AnimalList.vue')
   },
   {
     path: '/AnimalList',
