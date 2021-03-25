@@ -18,8 +18,8 @@ export default {
   data() {
     return {
       menus: [
-        { text: "유기동물", path: "/AnimalList" },
-        { text: "입양신청내역조회", path: "/Request" },
+        { text: "유기동물", path: "/" },
+        { text: "입양신청내역조회", path: "/request" },
       ],
     };
   },

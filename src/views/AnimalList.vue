@@ -10,7 +10,11 @@
         cols="12"
         sm="4"
       >
-        <v-card class="mx-auto my-12" max-width="374" @click="navigateTo(item)">
+        <v-card
+          class="mx-auto my-12"
+          max-width="374"
+          @click="seeDetails(item.id)"
+        >
           <v-img height="300" :src="item.popfile"></v-img>
 
           <v-card-title>{{ item.processState }}</v-card-title>
@@ -83,9 +87,8 @@ export default {
       }
     },
 
-    navigateTo(item) {
-      console.log(item);
-      this.$router.push("/AnimalDetails");
+    seeDetails(id) {
+      this.$router.push({ name: "animalDetails", params: { id } });
     },
   },
 };

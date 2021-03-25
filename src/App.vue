@@ -51,8 +51,8 @@ export default {
     items: [
       /* https://cdn.materialdesignicons.com/5.4.55/ */
       { text: "유기동물", path: "/" },
-      { text: "분실/보호동물", path: "/LostAndFoundAnimal" },
-      { text: "입양후기", path: "/ReviewMain" },
+      { text: "분실/보호동물", path: "/lostAndFoundAnimal" },
+      { text: "입양후기", path: "/reviewMain" },
       { text: "관리자", path: "/manager" },
     ],
   }),
