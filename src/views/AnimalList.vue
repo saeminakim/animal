@@ -11,8 +11,10 @@
         sm="4"
       >
         <v-card
+          flat
+          outlined
           class="mx-auto my-12"
-          max-width="374"
+          max-width="450"
           @click="seeDetails(item.id)"
         >
           <v-img height="300" :src="item.popfile"></v-img>

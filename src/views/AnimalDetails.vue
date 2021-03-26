@@ -2,15 +2,14 @@
   <div>
     <menu-tabs></menu-tabs>
     <v-container>
-      <v-row>
-        <v-col cols="3"></v-col>
-        <v-col cols="6" align-self="center">
+      <v-row justify="center">
+        <v-col cols="12" sm="10" md="8" lg="6">
           <v-card class="mx-auto my-12" max-width="80%" flat>
             <v-img :src="lists.popfile"></v-img>
             <v-row>
               <v-col>
                 <v-card-title class="headline mb-1">{{
-                  lists.processState
+                  lists.kindCd
                 }}</v-card-title>
               </v-col>
               <v-col>
@@ -117,7 +116,6 @@
           </v-card>
           <v-btn depressed @click="backToList">목록</v-btn>
         </v-col>
-        <v-col cols="3"></v-col>
       </v-row>
     </v-container>
   </div>

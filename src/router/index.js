@@ -26,6 +26,21 @@ const routes = [
     component: () => import('../views/AnimalDetails.vue'),
   },
   {
+    path: '/applied',
+    name: 'applied',
+    component: () => import('../views/Applied.vue'),
+  },
+  {
+    path: '/apply/:id',
+    name: 'apply',
+    component: () => import('../views/NewApplication.vue')
+  },
+  {
+    path: '/application',
+    name: 'application',
+    component: () => import('../views/getApplication.vue')
+  },
+  {
     path: '/lostandfoundanimal',
     name: 'lostAndFoundAnimal',
     component: () => import('../views/LostAndFoundAnimal.vue')
@@ -34,11 +49,6 @@ const routes = [
     path: '/reviewmain',
     name: 'reviewMain',
     component: () => import('../views/ReviewMain.vue')
-  },
-  {
-    path: '/apply',
-    name: 'apply',
-    component: () => import('../views/NewApplication.vue')
   },
   {
     path: '/manager',
