@@ -114,7 +114,9 @@
               </v-container>
             </v-card-text>
           </v-card>
-          <v-btn depressed @click="backToList">목록</v-btn>
+          <v-row justify="center">
+            <v-btn depressed @click="backToList">목록</v-btn>
+          </v-row>
         </v-col>
       </v-row>
     </v-container>

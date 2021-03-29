@@ -33,12 +33,32 @@ const routes = [
   {
     path: '/apply/:id',
     name: 'apply',
-    component: () => import('../views/NewApplication.vue')
+    component: () => import('../views/NewApp.vue')
   },
   {
     path: '/application',
     name: 'application',
-    component: () => import('../views/getApplication.vue')
+    component: () => import('../views/getApp.vue')
+  },
+  {
+    path: '/application/:id',
+    name: 'appDetails',
+    component: () => import('../views/AppDetails.vue')
+  },
+  {
+    path: '/application/edit/:id',
+    name: 'editApp',
+    component: () => import('../views/EditApp.vue')
+  },
+  {
+    path: '/edited',
+    name: 'edited',
+    component: () => import('../views/Edited.vue')
+  },
+  {
+    path: '/cancel',
+    name: 'cancel',
+    component: () => import('../views/CancelApp.vue')
   },
   {
     path: '/lostandfoundanimal',
