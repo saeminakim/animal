@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify';
-import menuTabs from './components/MenuTabs.vue'
+import menuTabs from './components/menuTabs.vue'
 import filter from './components/Filter.vue'
 
 // 컴포넌트를 전역으로 만들어줌
