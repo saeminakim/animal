@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    <filter-animal></filter-animal>
     <menu-tabs></menu-tabs>
     <v-row>
       <v-col

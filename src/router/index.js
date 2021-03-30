@@ -61,6 +61,11 @@ const routes = [
     component: () => import('../views/CancelApp.vue')
   },
   {
+    path: '/canceled',
+    name: 'canceled',
+    component: () => import('../views/Canceled.vue')
+  },
+  {
     path: '/lostandfoundanimal',
     name: 'lostAndFoundAnimal',
     component: () => import('../views/LostAndFoundAnimal.vue')

@@ -45,6 +45,8 @@ export default {
       const result = await request.cancel(id, application);
       console.log("---입양신청 취소 결과---");
       console.log(result);
+
+      return this.$router.push("/canceled");
     },
   },
 };

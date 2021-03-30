@@ -154,7 +154,11 @@
               </v-list>
             </v-container>
           </v-card-text>
-          <v-row justify="center">
+          <v-row justify="center" v-if="application.status.includes('취소')">
+            <v-btn class="ma-2" depressed>목록</v-btn>
+          </v-row>
+
+          <v-row justify="center" v-else>
             <v-btn class="ma-2" depressed @click="editApp(application.id)"
               >수정</v-btn
             >

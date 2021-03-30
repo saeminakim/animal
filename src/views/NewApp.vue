@@ -2,7 +2,7 @@
   <v-container>
     <v-row justify="center">
       <v-col cols="12" sm="10" md="8" lg="6">
-        <v-card flat>
+        <v-card flat outlined>
           <v-card-title>입양 신청</v-card-title>
           <v-card-text>
             <p>상처받은 아이들의 소중한 가족이 되어주세요.</p>
@@ -15,14 +15,13 @@
     <v-row justify="center">
       <!-- 입양신청서 폼 -->
       <v-col cols="12" sm="10" md="8" lg="6">
-        <v-card flat>
+        <v-card class="mx-auto my-12" max-width="80%" flat>
           <v-img :src="animal.popfile"></v-img>
           <v-card-title>{{ animal.noticeNo }}</v-card-title>
-          <v-form ref="form" v-model="valid" lazy-validation>
+          <v-form>
             <v-card-text>1. 이름</v-card-text>
             <v-text-field
               v-model="application.name"
-              label="이름"
               required
               outlined
               dense
@@ -31,7 +30,6 @@
             <v-card-text>2. 연락처</v-card-text>
             <v-text-field
               v-model="application.mobile"
-              label="연락처"
               required
               outlined
               dense
@@ -40,7 +38,6 @@
             <v-card-text>3. 이메일주소</v-card-text>
             <v-text-field
               v-model="application.email"
-              label="이메일"
               required
               outlined
               dense
@@ -55,7 +52,6 @@
             <v-card-text>5. 주소</v-card-text>
             <v-text-field
               v-model="application.address"
-              label="주소"
               required
               outlined
               dense
@@ -64,7 +60,6 @@
             <v-card-text>6. 직업</v-card-text>
             <v-text-field
               v-model="application.job"
-              label="직업"
               required
               outlined
               dense
@@ -96,7 +91,6 @@
             <v-card-text>10. 주거 형태</v-card-text>
             <v-text-field
               v-model="application.houseType"
-              label="주거 형태"
               required
               outlined
               dense
@@ -105,22 +99,11 @@
             <v-card-text>11. 입양을 희망하는 이유는 무엇인가요?</v-card-text>
             <v-textarea v-model="application.reason" outlined></v-textarea>
 
-            <v-btn
-              :disabled="!valid"
-              color="success"
-              class="mr-4"
-              @click="createApplication"
-            >
-              신청
-            </v-btn>
-
-            <v-btn color="error" class="mr-4" @click="reset">
-              Reset Form
-            </v-btn>
-
-            <v-btn color="warning" @click="resetValidation">
-              Reset Validation
-            </v-btn>
+            <v-row justify="center">
+              <v-btn color="success" class="mr-4" @click="createApplication">
+                신청
+              </v-btn>
+            </v-row>
           </v-form>
         </v-card>
       </v-col>
@@ -149,11 +132,6 @@ export default {
       reason: "",
       status: "",
     },
-    valid: true,
-
-    select: null,
-    items: ["Item 1", "Item 2", "Item 3", "Item 4"],
-    checkbox: false,
   }),
   mounted() {
     this.getAnimal();
@@ -161,18 +139,12 @@ export default {
 
   methods: {
     async getAnimal() {
-      let id = this.$route.params.id;
+      const id = this.$route.params.id;
       const result = await api.details(id);
       console.log(result.data);
       if (result.status == 200) {
         this.animal = result.data;
       }
-    },
-    reset() {
-      this.$refs.form.reset();
-    },
-    resetValidation() {
-      this.$refs.form.resetValidation();
     },
 
     async createApplication() {
@@ -192,7 +164,7 @@ export default {
         animalId: this.animal.id,
         noticeNo: this.animal.noticeNo,
         status: "진행중",
-        requestNo: 20210001,
+        requestNo: "20210001",
       };
 
       const result = await request.post(application);
@@ -202,10 +174,26 @@ export default {
     },
 
     // getRefNo() {
-    // 신청서 레퍼런스를 어떻게 만들것인가..........
-    // 8자리 : 신청연도 (4자리) + 증가하는 숫자(4자리)
-    // ex) 20210001
-    // }
+    //   // 신청서 레퍼런스를 어떻게 만들것인가..........
+    //   // 8자리 : 신청연도 (4자리) + 증가하는 숫자(4자리)
+    //   // ex) 20210001
+    //   // let rawNumber = 1;
+    //   let number = this.rawNumber.toLocaleString("en-US", {
+    //     minimumIntegerDigits: 4,
+    //     useGrouping: false,
+    //   });
+
+    //   const date = new Date();
+    //   const year = date.getFullYear();
+
+    //   console.log("저장 전 : " + year + number);
+
+    //   this.application.requestNo = year + number;
+
+    //   this.rawNumber += 1;
+
+    //   console.log("저장 후 : " + this.rawNumber);
+    // },
   },
 };
 </script>
