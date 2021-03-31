@@ -164,13 +164,16 @@ export default {
         animalId: this.animal.id,
         noticeNo: this.animal.noticeNo,
         status: "진행중",
-        requestNo: "20210001",
+        requestNo: "",
+        animalImg: this.animal.popfile,
       };
 
       const result = await request.post(application);
       console.log(result);
+      const requestNo = result.data.requestNo;
+      console.log(requestNo);
 
-      this.$router.push("/applied");
+      this.$router.push({ name: "applied", params: { requestNo } });
     },
 
     // getRefNo() {

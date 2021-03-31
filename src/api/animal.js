@@ -6,4 +6,6 @@ export default {
 
   details: (id) => axios.get(`${process.env.VUE_APP_API_BASE}/animals/${id}`),
 
+  sido: (sido, page) => axios.get(`${process.env.VUE_APP_API_BASE}/animals/filter?sido=${sido}&page=${page}&size=12`)
+
 }
