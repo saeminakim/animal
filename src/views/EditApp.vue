@@ -16,7 +16,10 @@
       <v-col cols="12" sm="10" md="8" lg="6">
         <v-card flat>
           <v-img :src="animal.popfile"></v-img>
-          <v-card-title>{{ animal.noticeNo }}</v-card-title>
+          <v-card-title
+            >입양신청번호 : {{ application.requestNo }}</v-card-title
+          >
+          <v-card-subtitle>{{ animal.noticeNo }}</v-card-subtitle>
           <v-form>
             <v-card-text>1. 이름 (수정 불가)</v-card-text>
             <v-text-field
@@ -156,9 +159,11 @@ export default {
       console.log(result.data);
       if (result.status == 200) {
         this.application = result.data;
-      }
 
-      this.$router.push("/edited");
+        const requestNo = this.application.requestNo;
+
+        this.$router.push({ name: "edited", params: { requestNo } });
+      }
     },
   },
 };

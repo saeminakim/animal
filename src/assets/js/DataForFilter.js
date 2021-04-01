@@ -1,10 +1,11 @@
 export default {
   items: {
-    area_id: null,
+    area_id: null, //이름
     animal_id: null,
+    status: null,
   },
   support: {
-    area_sido: "",
+    area_sido: "", // 숫자
     animal_type: "",
     status: "",
   },
@@ -509,10 +510,10 @@ export default {
       { text: "기타축종", dependency: 3 },
     ],
     opt_status: [
-      { text: "전체", value: 1 },
-      { text: "보호중", value: 2 },
-      { text: "입양진행중", value: 3 },
-      { text: "입양완료", value: 4 },
+      { text: "전체", value: "전체" },
+      { text: "보호중", value: "보호중" },
+      { text: "입양진행중", value: "입양진행중" },
+      { text: "입양완료", value: "입양완료" },
     ],
   },
 }

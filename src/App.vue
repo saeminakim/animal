@@ -1,8 +1,13 @@
 <template>
   <v-app>
-    <div class="header">
-      <img src="./assets/header.jpg" />
-    </div>
+    <v-app-bar width="100%" height="250" flat src="./assets/header.jpg">
+      <v-btn icon color="#f2f2f2" absolute right top
+        ><v-icon>mdi-cog-outline</v-icon></v-btn
+      >
+    </v-app-bar>
+    <!-- <div class="header">
+       <img src="./assets/header.jpg" />
+    </div> -->
 
     <v-main>
       <v-row justify="center">
@@ -53,7 +58,6 @@ export default {
       { text: "유기동물", path: "/" },
       { text: "분실/보호동물", path: "/lostAndFoundAnimal" },
       { text: "입양후기", path: "/reviewMain" },
-      { text: "관리자", path: "/manager" },
     ],
   }),
 
