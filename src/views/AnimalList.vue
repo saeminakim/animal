@@ -4,7 +4,7 @@
     <!-- 필터 UI -->
     <div>
       <v-row justify="center">
-        <v-col cols="2">
+        <v-col cols="auto">
           <v-select
             :items="filterOptions.options.opt_sido"
             v-model="filterOptions.support.area_sido"
@@ -14,7 +14,7 @@
             class="ma-2"
           ></v-select>
         </v-col>
-        <v-col cols="2">
+        <!-- <v-col cols="2">
           <v-select
             :items="filteredAreaData"
             v-model="filterOptions.items.area_id"
@@ -23,8 +23,8 @@
             outlined
             class="ma-2"
           ></v-select>
-        </v-col>
-        <v-col cols="2">
+        </v-col> -->
+        <v-col cols="auto">
           <v-select
             v-model="filterOptions.support.animal_type"
             :items="filterOptions.options.opt_type"
@@ -34,7 +34,7 @@
             class="ma-2"
           ></v-select>
         </v-col>
-        <v-col cols="2">
+        <!-- <v-col cols="2">
           <v-select
             :items="filteredKindData"
             v-model="filterOptions.items.animal_id"
@@ -43,8 +43,8 @@
             outlined
             class="ma-2"
           ></v-select>
-        </v-col>
-        <v-col cols="2">
+        </v-col> -->
+        <v-col cols="auto">
           <v-select
             :items="filterOptions.options.opt_status"
             v-model="filterOptions.support.status"
@@ -79,7 +79,7 @@
           max-width="450"
           @click="seeDetails(item.id)"
         >
-          <v-img height="300" :src="item.popfile"></v-img>
+          <v-img height="300" :src="item.popfile" alt="유기동물 사진"></v-img>
 
           <v-card-title>{{ item.processState }}</v-card-title>
 
@@ -115,6 +115,12 @@
     ></v-pagination>
   </v-container>
 </template>
+<style scoped>
+.v-pagination {
+  color: none;
+  border-color: none;
+}
+</style>
 
 <script>
 import filterOptions from "../assets/js/DataForFilter";
@@ -125,68 +131,202 @@ export default {
     filterOptions,
     lists: [],
     totalPages: 0,
-    page: 1,
+    page: 0,
     sido: "",
     sidoCode: 0,
-    areaId: "",
     type: "",
     typeCode: 0,
-    kindId: "",
+    status: "",
   }),
-  computed: {
-    filteredAreaData() {
-      let options = this.filterOptions.options.opt_gugun;
-      return options.filter(
-        (o) => o.dependency == this.filterOptions.support.area_sido
-      );
-    },
-    filteredKindData() {
-      let options = this.filterOptions.options.opt_kind;
-      return options.filter(
-        (o) => o.dependency == this.filterOptions.support.animal_type
-      );
-    },
-  },
+
   mounted() {
     this.getList();
   },
 
   methods: {
     async getList() {
-      let page = 0;
       console.log("현재 목록 상태 : " + this.$store.state.currentList);
+
+      // 전체 목록보기 상태일 때
       if (this.$store.state.currentList == "전체") {
-        const result = await api.list(page);
+        try {
+          const result = await api.list(this.page);
 
-        console.log(result.data);
+          console.log(result.data);
 
-        if (result.status == 200) {
-          this.lists = result.data.content;
-          this.totalPages = result.data.totalPages;
+          if (result.status == 200) {
+            this.lists = result.data.content;
+            this.page = result.data.number + 1;
+            this.totalPages = result.data.totalPages;
+          }
+        } catch (e) {
+          alert("검색 결과가 없습니다.");
         }
-      } else if (this.$store.state.currentList == "필터") {
+      }
+
+      // 필터 적용된 목록보기일 때
+      else if (this.$store.state.currentList == "필터") {
         console.log("필터된 리스트");
-        console.log(arguments[0]);
+        console.log(arguments);
+        this.page = arguments[3];
 
-        const result = await api.filteredList(arguments[0], page);
-        console.log(result);
+        // 시도 널 널
+        if (arguments[0] != "" && arguments[1] == "" && arguments[2] == "") {
+          console.log("시도 널 널");
+          try {
+            const result = await api.sido(this.sido, this.page);
+            console.log(result);
 
-        if (result.status == 200) {
-          this.lists = result.data.content;
-          this.totalPages = result.data.totalPages;
+            if (result.status == 200) {
+              this.lists = result.data.content;
+              this.page = result.data.number + 1;
+              this.totalPages = result.data.totalPages;
+            }
+          } catch (e) {
+            alert("검색 결과가 없습니다.");
+          }
+        }
+
+        // 시도 축종 널
+        else if (
+          arguments[0] != "" &&
+          arguments[1] != "" &&
+          arguments[2] == ""
+        ) {
+          console.log("시도 축종 널");
+          try {
+            const result = await api.sidoType(this.sido, this.type, this.page);
+
+            console.log(result);
+
+            if (result.status == 200) {
+              this.lists = result.data.content;
+              this.totalPages = result.data.totalPages;
+            }
+          } catch (e) {
+            alert("검색 결과가 없습니다.");
+          }
+        }
+
+        // 시도 축종 상태
+        else if (
+          arguments[0] != "" &&
+          arguments[1] != "" &&
+          arguments[2] != ""
+        ) {
+          console.log("시도 축종 상태");
+          try {
+            const result = await api.sidoTypeStatus(
+              this.sido,
+              this.type,
+              this.status,
+              this.page
+            );
+
+            console.log(result);
+
+            if (result.status == 200) {
+              this.lists = result.data.content;
+              this.totalPages = result.data.totalPages;
+            }
+          } catch (e) {
+            alert("검색 결과가 없습니다.");
+          }
+        }
+
+        // 널 축종 널
+        else if (
+          arguments[0] == "" &&
+          arguments[1] != "" &&
+          arguments[2] == ""
+        ) {
+          console.log("널 축종 널");
+          try {
+            const result = await api.type(this.type, this.page);
+            console.log(result);
+
+            if (result.status == 200) {
+              this.lists = result.data.content;
+              this.totalPages = result.data.totalPages;
+            }
+          } catch (e) {
+            alert("검색 결과가 없습니다.");
+          }
+        }
+
+        // 널 축종 상태
+        else if (
+          arguments[0] == "" &&
+          arguments[1] != "" &&
+          arguments[2] != ""
+        ) {
+          console.log("널 축종 상태");
+          try {
+            const result = await api.typeStatus(
+              this.type,
+              this.status,
+              this.page
+            );
+            console.log(result);
+
+            if (result.status == 200) {
+              this.lists = result.data.content;
+              this.totalPages = result.data.totalPages;
+            }
+          } catch (e) {
+            alert("검색 결과가 없습니다.");
+          }
+        }
+
+        // 시도 널 상태
+        else if (
+          arguments[0] != "" &&
+          arguments[1] == "" &&
+          arguments[2] != ""
+        ) {
+          console.log("시도 널 상태");
+          try {
+            const result = await api.sidoStatus(
+              this.sido,
+              this.status,
+              this.page
+            );
+            console.log(result);
+
+            if (result.status == 200) {
+              this.lists = result.data.content;
+              this.totalPages = result.data.totalPages;
+            }
+          } catch (e) {
+            alert("검색 결과가 없습니다.");
+          }
+        }
+        // 널 널 상태
+        else if (
+          arguments[0] == "" &&
+          arguments[1] == "" &&
+          arguments[2] != ""
+        ) {
+          console.log("널 널 상태");
+          try {
+            const result = await api.status(this.status, this.page);
+            console.log(result);
+
+            if (result.status == 200) {
+              this.lists = result.data.content;
+              this.totalPages = result.data.totalPages;
+            }
+          } catch (e) {
+            alert("검색 결과가 없습니다.");
+          }
         }
       }
     },
 
     async handlePageChange(value) {
-      let page = value - 1;
+      this.page = value - 1;
 
-      this.getList(page);
-
-      // const result = await api.list(this.page);
-      // if (result.status == 200) {
-      //   this.lists = result.data.content;
-      // }
+      this.getList(this.sido, this.type, this.status, this.page);
     },
 
     seeDetails(id) {
@@ -202,7 +342,6 @@ export default {
     getType() {
       const optType = this.filterOptions.options.opt_type;
       const typeArray = optType.filter((o) => o.value == this.typeCode);
-      console.log("typeArray : " + typeArray);
       this.type = typeArray[0].text;
     },
 
@@ -211,119 +350,28 @@ export default {
       this.$store.state.currentList = "필터";
 
       this.sidoCode = this.filterOptions.support.area_sido;
-      this.areaId = this.filterOptions.items.area_id;
       this.typeCode = this.filterOptions.support.animal_type;
-      this.kindId = this.filterOptions.items.animal_id;
       this.status = this.filterOptions.support.status;
-      console.log(
-        "시도 코드 : " +
-          this.sidoCode +
-          ", 구군 : " +
-          this.areaId +
-          ", 축종 : " +
-          this.typeCode +
-          ", 상세품종 : " +
-          this.kindId +
-          ", 상태 : " +
-          this.status
-      );
 
-      // 시도만 선택했을 때
-      if (this.sidoCode != "" && this.typeCode == "" && this.status == "") {
+      console.log("this.status");
+      console.log(this.status);
+
+      if (this.sidoCode != "" && this.typeCode == "") {
         this.getSido();
-        // 시도/구군까지 선택했을 때
-        if (this.areaId != null) {
-          console.log("시도/구군까지 선택됨. 시도/구군 필터 메소드 실행");
-          // this.getList(this.sido, this.areaId);
-          // 시도만 선택했을 때
-        } else {
-          console.log("시도만 선택됨. 시도 필터 메소드 실행");
-        }
-      } // 축종만 선택했을 때
-      else if (
-        this.sidoCode == "" &&
-        this.typeCode != "" &&
-        this.status == ""
-      ) {
+        console.log("시도 :" + this.sido);
+      } else if (this.sidoCode != "" && this.typeCode != "") {
+        this.getSido();
+        console.log("시도 :" + this.sido);
         this.getType();
-
-        // 축종/품종까지 선택했을 때
-        if (this.kindId != null) {
-          console.log("축종/품종까지 선택됨. 축종/품종 필터 메소드 실행");
-        } else {
-          console.log("축종만 선택됨. 축종 필터 메소드 실행");
-        }
-      } // 상태만 선택했을 때
-      else if (
-        this.sidoCode == "" &&
-        this.typeCode == "" &&
-        this.status != ""
-      ) {
-        console.log("상태만 선택됨. 상태 필터 메소드 실행");
-      } // 시도 & 축종 선택
-      else if (
-        this.sidoCode != "" &&
-        this.typeCode != "" &&
-        this.status == ""
-      ) {
-        if (this.areaId == null && this.kindId == null) {
-          console.log("시도/축종 선택됨. 시도/축종 필터 메소드 실행");
-        } else if (this.areaId == null && this.kindId != null) {
-          console.log("시도/축종/품종 선택");
-        } else if (this.areaId != null && this.kindId == null) {
-          console.log("시도/구군/축종 선택됨");
-        } else {
-          console.log(
-            "시도/구군/축종/품종 선택됨. 시도/구군/축종/품종 필터 메소드 실행"
-          );
-        }
-      } // 시도 & 상태 선택
-      else if (
-        this.sidoCode != "" &&
-        this.typeCode == "" &&
-        this.status != ""
-      ) {
-        if (this.areaId != null) {
-          console.log("시도/구군/상태 선택됨. 시도/구군/상태 필터 메소드 실행");
-        } else {
-          console.log("시도/상태 선택됨. 시도/상태 필터 메소드 실행");
-        }
-      } // 축종 & 상태 선택
-      else if (
-        this.sidoCode == "" &&
-        this.typeCode != "" &&
-        this.status != ""
-      ) {
-        if (this.kindId != null) {
-          console.log("축종/품종/상태 선택됨. 축종/품종/상태 필터 메소드 실행");
-        } else {
-          console.log("축종/상태 선택됨. 축종/상태 필터 메소드 실행");
-        }
-      } // 시도&축종&상태 선택
-      else if (
-        this.sidoCode != "" &&
-        this.typeCode != "" &&
-        this.status != ""
-      ) {
-        if (this.areaId == null && this.kindId == null) {
-          console.log("시도/축종/상태 선택");
-        } else if (this.areaId == null && this.kindId != null) {
-          console.log("시도/축종/품종/상태 선택");
-        } else if (this.areaId != null && this.kindId == null) {
-          console.log("시도/구군/축종/상태 선택");
-        } else {
-          console.log("시도/구군/축종/품종/상태 선택");
-        }
+        console.log("축종 : " + this.type);
+      } else if (this.sidoCode == "" && this.typeCode != "") {
+        this.getType();
+        console.log("축종 : " + this.type);
+      } else {
+        console.log("상태 : " + this.status);
       }
 
-      // console.log("시도 코드 : " + this.sido);
-      // console.log("구군 : " + this.areaId);
-      // console.log("축종 : " + this.type);
-      // console.log("상세품종 : " + this.kindId);
-      // console.log("상태 : " + this.status);
-
-      // select의 값을 매개 변수로 넘겨주며 getList 호출
-      // this.getList(this.sido, this.areaId, this.typeCode, this.kindId);
+      this.getList(this.sido, this.type, this.status, this.page);
     },
   },
 };

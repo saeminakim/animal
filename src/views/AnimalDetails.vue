@@ -5,7 +5,7 @@
       <v-row justify="center">
         <v-col cols="12" sm="10" md="8" lg="6">
           <v-card class="mx-auto my-12" max-width="80%" flat>
-            <v-img :src="lists.popfile"></v-img>
+            <v-img :src="lists.popfile" alt="유기동물 사진"></v-img>
             <v-row>
               <v-col>
                 <v-card-title class="headline mb-1">{{

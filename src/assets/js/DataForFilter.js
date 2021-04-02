@@ -11,7 +11,6 @@ export default {
   },
   options: {
     opt_sido: [
-      { text: "전체", value: 18 },
       { text: "서울특별시", value: 1 },
       { text: "부산광역시", value: 2 },
       { text: "대구광역시", value: 3 },
@@ -285,7 +284,6 @@ export default {
       { text: "제주특별자치도", dependency: 17 },
     ],
     opt_type: [
-      { text: "전체", value: 4 },
       { text: "개", value: 1 },
       { text: "고양이", value: 2 },
       { text: "기타축종", value: 3 },
@@ -510,7 +508,6 @@ export default {
       { text: "기타축종", dependency: 3 },
     ],
     opt_status: [
-      { text: "전체", value: "전체" },
       { text: "보호중", value: "보호중" },
       { text: "입양진행중", value: "입양진행중" },
       { text: "입양완료", value: "입양완료" },
