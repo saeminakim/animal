@@ -14,7 +14,7 @@
             class="ma-2"
           ></v-select>
         </v-col>
-        <!-- <v-col cols="2">
+        <v-col cols="auto">
           <v-select
             :items="filteredAreaData"
             v-model="filterOptions.items.area_id"
@@ -23,7 +23,7 @@
             outlined
             class="ma-2"
           ></v-select>
-        </v-col> -->
+        </v-col>
         <v-col cols="auto">
           <v-select
             v-model="filterOptions.support.animal_type"
@@ -129,15 +129,32 @@ import api from "../api/animal";
 export default {
   data: () => ({
     filterOptions,
+    currentList: "전체",
     lists: [],
     totalPages: 0,
     page: 0,
     sido: "",
     sidoCode: 0,
+    gugun: "",
     type: "",
     typeCode: 0,
     status: "",
   }),
+
+    computed: {
+    filteredAreaData() {
+      let options = this.filterOptions.options.opt_gugun;
+      return options.filter(
+        (o) => o.dependency == this.filterOptions.support.area_sido
+      );
+    },
+    filteredKindData() {
+      let options = this.filterOptions.options.opt_kind;
+      return options.filter(
+        (o) => o.dependency == this.filterOptions.support.animal_type
+      );
+    },
+  },
 
   mounted() {
     this.getList();
@@ -145,10 +162,10 @@ export default {
 
   methods: {
     async getList() {
-      console.log("현재 목록 상태 : " + this.$store.state.currentList);
+      console.log("현재 목록 상태 : " + this.currentList);
 
       // 전체 목록보기 상태일 때
-      if (this.$store.state.currentList == "전체") {
+      if (this.currentList == "전체") {
         try {
           const result = await api.list(this.page);
 
@@ -165,14 +182,14 @@ export default {
       }
 
       // 필터 적용된 목록보기일 때
-      else if (this.$store.state.currentList == "필터") {
+      else if (this.currentList == "필터") {
         console.log("필터된 리스트");
         console.log(arguments);
-        this.page = arguments[3];
+        this.page = arguments[4];
 
-        // 시도 널 널
-        if (arguments[0] != "" && arguments[1] == "" && arguments[2] == "") {
-          console.log("시도 널 널");
+        // 시도 널 널 널
+        if (arguments[0] != "" && arguments[1] == null && arguments[2] == "" && arguments[3] == "") {
+          console.log("시도 널 널 널");
           try {
             const result = await api.sido(this.sido, this.page);
             console.log(result);
@@ -186,14 +203,31 @@ export default {
             alert("검색 결과가 없습니다.");
           }
         }
+                // 시도 구군 널 널
+        else if (arguments[0] != "" && arguments[1] != null && arguments[2] == "" && arguments[3] == "") {
+          console.log("시도 구군 널 널");
+          try {
+            const result = await api.sidoGugun(this.sido, this.gugun, this.page);
+            console.log(result);
 
-        // 시도 축종 널
+            if (result.status == 200) {
+              this.lists = result.data.content;
+              this.page = result.data.number + 1;
+              this.totalPages = result.data.totalPages;
+            }
+          } catch (e) {
+            alert("검색 결과가 없습니다.");
+          }
+        }
+
+        // 시도 널 축종 널
         else if (
           arguments[0] != "" &&
-          arguments[1] != "" &&
-          arguments[2] == ""
+          arguments[1] == null &&
+          arguments[2] != "" &&
+          arguments[3] == ""
         ) {
-          console.log("시도 축종 널");
+          console.log("시도 널 축종 널");
           try {
             const result = await api.sidoType(this.sido, this.type, this.page);
 
@@ -208,13 +242,38 @@ export default {
           }
         }
 
-        // 시도 축종 상태
+
+        // 시도 구군 축종 널
         else if (
           arguments[0] != "" &&
-          arguments[1] != "" &&
-          arguments[2] != ""
+          arguments[1] != null &&
+          arguments[2] != "" &&
+          arguments[3] == ""
         ) {
-          console.log("시도 축종 상태");
+          console.log("시도 구군 축종 널");
+          try {
+            const result = await api.sidoGugunType(this.sido, this.gugun, this.type, this.page);
+
+            console.log(result);
+
+            if (result.status == 200) {
+              this.lists = result.data.content;
+              this.totalPages = result.data.totalPages;
+            }
+          } catch (e) {
+            alert("검색 결과가 없습니다.");
+          }
+        }
+
+
+        // 시도 널 축종 상태
+        else if (
+          arguments[0] != "" &&
+          arguments[1] == null &&
+          arguments[2] != "" &&
+          arguments[3] != ""
+        ) {
+          console.log("시도 널 축종 상태");
           try {
             const result = await api.sidoTypeStatus(
               this.sido,
@@ -234,13 +293,42 @@ export default {
           }
         }
 
-        // 널 축종 널
+                // 시도 구군 축종 상태
+        else if (
+          arguments[0] != "" &&
+          arguments[1] != null &&
+          arguments[2] != "" &&
+          arguments[3] != ""
+        ) {
+          console.log("시도 구군 축종 상태");
+          try {
+            const result = await api.sidoGugunTypeStatus(
+              this.sido,
+              this.gugun,
+              this.type,
+              this.status,
+              this.page
+            );
+
+            console.log(result);
+
+            if (result.status == 200) {
+              this.lists = result.data.content;
+              this.totalPages = result.data.totalPages;
+            }
+          } catch (e) {
+            alert("검색 결과가 없습니다.");
+          }
+        }
+
+        // 널 널 축종 널
         else if (
           arguments[0] == "" &&
-          arguments[1] != "" &&
-          arguments[2] == ""
+          arguments[1] == null &&
+          arguments[2] != "" &&
+          arguments[3] == ""
         ) {
-          console.log("널 축종 널");
+          console.log("널 널 축종 널");
           try {
             const result = await api.type(this.type, this.page);
             console.log(result);
@@ -254,13 +342,14 @@ export default {
           }
         }
 
-        // 널 축종 상태
+        // 널 널 축종 상태
         else if (
           arguments[0] == "" &&
-          arguments[1] != "" &&
-          arguments[2] != ""
+          arguments[1] == null &&
+          arguments[2] != "" &&
+          arguments[3] != ""
         ) {
-          console.log("널 축종 상태");
+          console.log("널 널 축종 상태");
           try {
             const result = await api.typeStatus(
               this.type,
@@ -278,13 +367,14 @@ export default {
           }
         }
 
-        // 시도 널 상태
+        // 시도 널 널 상태
         else if (
           arguments[0] != "" &&
-          arguments[1] == "" &&
-          arguments[2] != ""
+          arguments[1] == null &&
+          arguments[2] == "" &&
+          arguments[3] != ""
         ) {
-          console.log("시도 널 상태");
+          console.log("시도 널 널 상태");
           try {
             const result = await api.sidoStatus(
               this.sido,
@@ -301,13 +391,41 @@ export default {
             alert("검색 결과가 없습니다.");
           }
         }
-        // 널 널 상태
+
+       // 시도 구군 널 상태
+        else if (
+          arguments[0] != "" &&
+          arguments[1] != null &&
+          arguments[2] == "" &&
+          arguments[3] != ""
+        ) {
+          console.log("시도 구군 널 상태");
+          try {
+            const result = await api.sidoGugunStatus(
+              this.sido,
+              this.gugun,
+              this.status,
+              this.page
+            );
+            console.log(result);
+
+            if (result.status == 200) {
+              this.lists = result.data.content;
+              this.totalPages = result.data.totalPages;
+            }
+          } catch (e) {
+            alert("검색 결과가 없습니다.");
+          }
+        }
+
+        // 널 널 널 상태
         else if (
           arguments[0] == "" &&
-          arguments[1] == "" &&
-          arguments[2] != ""
+          arguments[1] == null &&
+          arguments[2] == "" &&
+          arguments[3] != ""
         ) {
-          console.log("널 널 상태");
+          console.log("널 널 널 상태");
           try {
             const result = await api.status(this.status, this.page);
             console.log(result);
@@ -326,7 +444,7 @@ export default {
     async handlePageChange(value) {
       this.page = value - 1;
 
-      this.getList(this.sido, this.type, this.status, this.page);
+      this.getList(this.sido, this.gugun, this.type, this.status, this.page);
     },
 
     seeDetails(id) {
@@ -347,9 +465,10 @@ export default {
 
     async filterData() {
       // 현재 리스트의 상태값을 "필터"로 변경
-      this.$store.state.currentList = "필터";
+      this.currentList = "필터";
 
       this.sidoCode = this.filterOptions.support.area_sido;
+      this.gugun = this.filterOptions.items.area_id;
       this.typeCode = this.filterOptions.support.animal_type;
       this.status = this.filterOptions.support.status;
 
@@ -371,7 +490,7 @@ export default {
         console.log("상태 : " + this.status);
       }
 
-      this.getList(this.sido, this.type, this.status, this.page);
+      this.getList(this.sido, this.gugun, this.type, this.status, this.page);
     },
   },
 };
