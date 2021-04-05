@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container fluid>
     <v-row justify="center">
       <v-col cols="12" sm="10" md="8" lg="6">
         <v-card class="mx-auto my-12" width="90%" flat outlined>
@@ -13,7 +13,7 @@
               <v-list>
                 <v-list-item>
                   <v-list-item-icon>
-                    <v-icon color="#C7AD7F"> mdi-paw </v-icon>
+                    <v-icon color="orange"> mdi-paw </v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
                     <v-list-item-title>
@@ -23,7 +23,7 @@
                 </v-list-item>
                 <v-list-item>
                   <v-list-item-icon>
-                    <v-icon color="#C7AD7F"> mdi-paw </v-icon>
+                    <v-icon color="orange"> mdi-paw </v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
                     <v-list-item-title>
@@ -33,7 +33,7 @@
                 </v-list-item>
                 <v-list-item>
                   <v-list-item-icon>
-                    <v-icon color="#C7AD7F"> mdi-paw </v-icon>
+                    <v-icon color="orange"> mdi-paw </v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
                     <v-list-item-title>
@@ -43,7 +43,7 @@
                 </v-list-item>
                 <v-list-item>
                   <v-list-item-icon>
-                    <v-icon color="#C7AD7F"> mdi-paw </v-icon>
+                    <v-icon color="orange"> mdi-paw </v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
                     <v-list-item-title>
@@ -53,7 +53,7 @@
                 </v-list-item>
                 <v-list-item>
                   <v-list-item-icon>
-                    <v-icon color="#C7AD7F"> mdi-paw </v-icon>
+                    <v-icon color="orange"> mdi-paw </v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
                     <v-list-item-title>
@@ -63,7 +63,7 @@
                 </v-list-item>
                 <v-list-item>
                   <v-list-item-icon>
-                    <v-icon color="#C7AD7F"> mdi-paw </v-icon>
+                    <v-icon color="orange"> mdi-paw </v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
                     <v-list-item-title>
@@ -73,7 +73,7 @@
                 </v-list-item>
                 <v-list-item>
                   <v-list-item-icon>
-                    <v-icon color="#C7AD7F"> mdi-paw </v-icon>
+                    <v-icon color="orange"> mdi-paw </v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
                     <v-list-item-title>
@@ -83,7 +83,7 @@
                 </v-list-item>
                 <v-list-item>
                   <v-list-item-icon>
-                    <v-icon color="#C7AD7F"> mdi-paw </v-icon>
+                    <v-icon color="orange"> mdi-paw </v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
                     <v-list-item-title>
@@ -93,7 +93,7 @@
                 </v-list-item>
                 <v-list-item>
                   <v-list-item-icon>
-                    <v-icon color="#C7AD7F"> mdi-paw </v-icon>
+                    <v-icon color="orange"> mdi-paw </v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
                     <v-list-item-title>
@@ -103,7 +103,7 @@
                 </v-list-item>
                 <v-list-item>
                   <v-list-item-icon>
-                    <v-icon color="#C7AD7F"> mdi-paw </v-icon>
+                    <v-icon color="orange"> mdi-paw </v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
                     <v-list-item-title>
@@ -113,7 +113,7 @@
                 </v-list-item>
                 <v-list-item>
                   <v-list-item-icon>
-                    <v-icon color="#C7AD7F"> mdi-paw </v-icon>
+                    <v-icon color="orange"> mdi-paw </v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
                     <v-list-item-title>
@@ -123,7 +123,7 @@
                 </v-list-item>
                 <v-list-item>
                   <v-list-item-icon>
-                    <v-icon color="#C7AD7F"> mdi-paw </v-icon>
+                    <v-icon color="orange"> mdi-paw </v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
                     <v-list-item-title>
@@ -133,7 +133,7 @@
                 </v-list-item>
                 <v-list-item>
                   <v-list-item-icon>
-                    <v-icon color="#C7AD7F"> mdi-paw </v-icon>
+                    <v-icon color="orange"> mdi-paw </v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
                     <v-list-item-title>
@@ -143,7 +143,7 @@
                 </v-list-item>
                 <v-list-item>
                   <v-list-item-icon>
-                    <v-icon color="#C7AD7F"> mdi-paw </v-icon>
+                    <v-icon color="orange"> mdi-paw </v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
                     <v-list-item-title>
@@ -154,22 +154,24 @@
               </v-list>
             </v-container>
           </v-card-text>
-          <v-row justify="center" v-if="application.status.includes('취소')">
-            <v-btn class="ma-2" depressed>목록</v-btn>
-          </v-row>
+          <template>
+            <v-row justify="center" v-if="isCanceled">
+              <v-btn class="ma-2" depressed @click="backToList">뒤로</v-btn>
+            </v-row>
 
-          <v-row justify="center" v-else>
-            <v-btn class="ma-2" depressed @click="editApp(application.id)"
-              >수정</v-btn
-            >
-            <v-btn
-              class="ma-2"
-              depressed
-              color="error"
-              @click="cancel(application.id)"
-              >취소요청</v-btn
-            >
-          </v-row>
+            <v-row justify="center" v-else>
+              <v-btn class="ma-2" depressed @click="editApp(application.id)"
+                >수정</v-btn
+              >
+              <v-btn
+                class="ma-2"
+                depressed
+                color="error"
+                @click="cancel(application.id)"
+                >취소요청</v-btn
+              >
+            </v-row>
+          </template>
         </v-card>
       </v-col>
     </v-row>
@@ -184,6 +186,18 @@ export default {
     animal: [],
     application: [],
   }),
+  computed: {
+    isCanceled() {
+      const status = this.application.status;
+      const cancel = "취소";
+
+      if (status == undefined || status.includes(cancel)) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+  },
   mounted() {
     this.getAnimal();
     this.getApp();
@@ -212,6 +226,10 @@ export default {
 
     cancel(id) {
       this.$router.push({ name: "cancel", params: { id } });
+    },
+
+    backToList() {
+      return this.$router.go(-1);
     },
   },
 };

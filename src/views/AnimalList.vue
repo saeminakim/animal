@@ -4,7 +4,7 @@
     <!-- 필터 UI -->
     <div>
       <v-row justify="center">
-        <v-col cols="auto">
+        <v-col cols="2">
           <v-select
             :items="filterOptions.options.opt_sido"
             v-model="filterOptions.support.area_sido"
@@ -14,7 +14,7 @@
             class="ma-2"
           ></v-select>
         </v-col>
-        <v-col cols="auto">
+        <v-col cols="2">
           <v-select
             :items="filteredAreaData"
             v-model="filterOptions.items.area_id"
@@ -24,7 +24,7 @@
             class="ma-2"
           ></v-select>
         </v-col>
-        <v-col cols="auto">
+        <v-col cols="2">
           <v-select
             v-model="filterOptions.support.animal_type"
             :items="filterOptions.options.opt_type"
@@ -44,7 +44,7 @@
             class="ma-2"
           ></v-select>
         </v-col> -->
-        <v-col cols="auto">
+        <v-col cols="2">
           <v-select
             :items="filterOptions.options.opt_status"
             v-model="filterOptions.support.status"
@@ -89,15 +89,15 @@
                 <v-col sm="6">
                   <v-card flat> {{ item.kindCd }} </v-card>
                 </v-col>
-                <v-col sm="6">
+                <v-col sm="4">
                   <v-card flat> {{ item.sexCd }} </v-card>
                 </v-col>
               </v-row>
-              <v-row>
+              <v-row align="center" class="mx-0">
                 <v-col sm="6">
                   <v-card flat> {{ item.orgNm }} </v-card>
                 </v-col>
-                <v-col sm="6">
+                <v-col sm="4">
                   <v-card flat> {{ item.happenDt }} </v-card>
                 </v-col>
               </v-row>
@@ -107,7 +107,7 @@
       </v-col>
     </v-row>
     <v-pagination
-      v-model="page"
+      v-model="value"
       class="my-4"
       :length="totalPages"
       :total-visible="10"
@@ -115,10 +115,10 @@
     ></v-pagination>
   </v-container>
 </template>
+
 <style scoped>
-.v-pagination {
-  color: none;
-  border-color: none;
+.pageItem {
+  border-width: 0px !important;
 }
 </style>
 
@@ -133,6 +133,7 @@ export default {
     lists: [],
     totalPages: 0,
     page: 0,
+    value: 0,
     sido: "",
     sidoCode: 0,
     gugun: "",
@@ -141,7 +142,7 @@ export default {
     status: "",
   }),
 
-    computed: {
+  computed: {
     filteredAreaData() {
       let options = this.filterOptions.options.opt_gugun;
       return options.filter(
@@ -173,7 +174,7 @@ export default {
 
           if (result.status == 200) {
             this.lists = result.data.content;
-            this.page = result.data.number + 1;
+            // this.page = result.data.number + 1;
             this.totalPages = result.data.totalPages;
           }
         } catch (e) {
@@ -183,12 +184,16 @@ export default {
 
       // 필터 적용된 목록보기일 때
       else if (this.currentList == "필터") {
-        console.log("필터된 리스트");
+        console.log("현재 목록 상태 : " + this.currentList);
         console.log(arguments);
-        this.page = arguments[4];
 
         // 시도 널 널 널
-        if (arguments[0] != "" && arguments[1] == null && arguments[2] == "" && arguments[3] == "") {
+        if (
+          arguments[0] != "" &&
+          arguments[1] == null &&
+          arguments[2] == "" &&
+          arguments[3] == ""
+        ) {
           console.log("시도 널 널 널");
           try {
             const result = await api.sido(this.sido, this.page);
@@ -203,11 +208,20 @@ export default {
             alert("검색 결과가 없습니다.");
           }
         }
-                // 시도 구군 널 널
-        else if (arguments[0] != "" && arguments[1] != null && arguments[2] == "" && arguments[3] == "") {
+        // 시도 구군 널 널
+        else if (
+          arguments[0] != "" &&
+          arguments[1] != null &&
+          arguments[2] == "" &&
+          arguments[3] == ""
+        ) {
           console.log("시도 구군 널 널");
           try {
-            const result = await api.sidoGugun(this.sido, this.gugun, this.page);
+            const result = await api.sidoGugun(
+              this.sido,
+              this.gugun,
+              this.page
+            );
             console.log(result);
 
             if (result.status == 200) {
@@ -235,13 +249,13 @@ export default {
 
             if (result.status == 200) {
               this.lists = result.data.content;
+              this.page = result.data.number + 1;
               this.totalPages = result.data.totalPages;
             }
           } catch (e) {
             alert("검색 결과가 없습니다.");
           }
         }
-
 
         // 시도 구군 축종 널
         else if (
@@ -252,19 +266,24 @@ export default {
         ) {
           console.log("시도 구군 축종 널");
           try {
-            const result = await api.sidoGugunType(this.sido, this.gugun, this.type, this.page);
+            const result = await api.sidoGugunType(
+              this.sido,
+              this.gugun,
+              this.type,
+              this.page
+            );
 
             console.log(result);
 
             if (result.status == 200) {
               this.lists = result.data.content;
+              this.page = result.data.number + 1;
               this.totalPages = result.data.totalPages;
             }
           } catch (e) {
             alert("검색 결과가 없습니다.");
           }
         }
-
 
         // 시도 널 축종 상태
         else if (
@@ -286,6 +305,7 @@ export default {
 
             if (result.status == 200) {
               this.lists = result.data.content;
+              this.page = result.data.number + 1;
               this.totalPages = result.data.totalPages;
             }
           } catch (e) {
@@ -293,7 +313,7 @@ export default {
           }
         }
 
-                // 시도 구군 축종 상태
+        // 시도 구군 축종 상태
         else if (
           arguments[0] != "" &&
           arguments[1] != null &&
@@ -314,6 +334,7 @@ export default {
 
             if (result.status == 200) {
               this.lists = result.data.content;
+              this.page = result.data.number + 1;
               this.totalPages = result.data.totalPages;
             }
           } catch (e) {
@@ -335,6 +356,7 @@ export default {
 
             if (result.status == 200) {
               this.lists = result.data.content;
+              this.page = result.data.number + 1;
               this.totalPages = result.data.totalPages;
             }
           } catch (e) {
@@ -360,6 +382,7 @@ export default {
 
             if (result.status == 200) {
               this.lists = result.data.content;
+              this.page = result.data.number + 1;
               this.totalPages = result.data.totalPages;
             }
           } catch (e) {
@@ -385,6 +408,7 @@ export default {
 
             if (result.status == 200) {
               this.lists = result.data.content;
+              this.page = result.data.number + 1;
               this.totalPages = result.data.totalPages;
             }
           } catch (e) {
@@ -392,7 +416,7 @@ export default {
           }
         }
 
-       // 시도 구군 널 상태
+        // 시도 구군 널 상태
         else if (
           arguments[0] != "" &&
           arguments[1] != null &&
@@ -411,6 +435,7 @@ export default {
 
             if (result.status == 200) {
               this.lists = result.data.content;
+              this.page = result.data.number + 1;
               this.totalPages = result.data.totalPages;
             }
           } catch (e) {
@@ -432,6 +457,7 @@ export default {
 
             if (result.status == 200) {
               this.lists = result.data.content;
+              this.page = result.data.number + 1;
               this.totalPages = result.data.totalPages;
             }
           } catch (e) {
@@ -442,9 +468,18 @@ export default {
     },
 
     async handlePageChange(value) {
+      console.log("페이지 value : " + value);
+      this.value = value;
       this.page = value - 1;
 
       this.getList(this.sido, this.gugun, this.type, this.status, this.page);
+
+      // 페이지 테두리 blur
+      const btnList = document.querySelectorAll(".v-pagination button");
+      for (let btn of btnList) {
+        btn.blur();
+      }
+      // console.log(btnList);
     },
 
     seeDetails(id) {
@@ -472,9 +507,6 @@ export default {
       this.typeCode = this.filterOptions.support.animal_type;
       this.status = this.filterOptions.support.status;
 
-      console.log("this.status");
-      console.log(this.status);
-
       if (this.sidoCode != "" && this.typeCode == "") {
         this.getSido();
         console.log("시도 :" + this.sido);
@@ -490,6 +522,7 @@ export default {
         console.log("상태 : " + this.status);
       }
 
+      this.page = 0;
       this.getList(this.sido, this.gugun, this.type, this.status, this.page);
     },
   },

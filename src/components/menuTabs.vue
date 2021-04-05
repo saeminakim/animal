@@ -1,17 +1,22 @@
 <template>
-  <v-container grid-list-xl>
-    <v-toolbar flat height="15px">
-      <template v-slot:extension>
-        <v-tabs align-with-title>
-          <v-tabs-slider color="#C7AD7F"></v-tabs-slider>
-          <v-tab v-for="(menu, i) in menus" :key="i" @click="navigateTo(menu)">
-            {{ menu.text }}
-          </v-tab>
-        </v-tabs>
-      </template>
-    </v-toolbar>
-  </v-container>
+  <!-- <v-container grid-list-xl> -->
+  <!-- <v-toolbar flat height="15px"> -->
+  <!-- <template v-slot:extension> -->
+  <v-tabs align-with-title>
+    <v-tabs-slider color="orange"></v-tabs-slider>
+    <v-tab v-for="(menu, i) in menus" :key="i" @click="navigateTo(menu)">
+      {{ menu.text }}
+    </v-tab>
+  </v-tabs>
+  <!-- </template> -->
+  <!-- </v-toolbar> -->
+  <!-- </v-container> -->
 </template>
+<style scoped>
+.v-toolbar__image {
+  display: none;
+}
+</style>
 
 <script>
 export default {

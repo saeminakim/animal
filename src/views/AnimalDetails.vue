@@ -18,7 +18,8 @@
                   absolute
                   right
                   x-large
-                  color="#C7AD7F"
+                  color="orange"
+                  class="white--text"
                   @click="applyAdoption(lists.id)"
                   >입양신청<v-icon>mdi-paw</v-icon></v-btn
                 >
@@ -29,86 +30,65 @@
                 <v-list>
                   <v-list-item>
                     <v-list-item-icon>
-                      <v-icon color="#C7AD7F"> mdi-paw </v-icon>
+                      <v-icon color="orange"> mdi-paw </v-icon>
                     </v-list-item-icon>
-                    <v-list-item-content>
-                      <v-list-item-title>
-                        {{ lists.sexCd }}/{{ lists.age }}/{{ lists.weight }}
-                      </v-list-item-title>
-                    </v-list-item-content>
+                    <v-card-text>
+                      {{ lists.sexCd }}/{{ lists.age }}/{{ lists.weight }}
+                    </v-card-text>
                   </v-list-item>
                   <v-list-item>
                     <v-list-item-icon>
-                      <v-icon color="#C7AD7F"> mdi-paw </v-icon>
+                      <v-icon color="orange"> mdi-paw </v-icon>
                     </v-list-item-icon>
-                    <v-list-item-content>
-                      <v-list-item-title>
-                        공고번호: {{ lists.noticeNo }}
-                      </v-list-item-title>
-                    </v-list-item-content>
+                    <v-card-text> 공고번호: {{ lists.noticeNo }} </v-card-text>
                   </v-list-item>
                   <v-list-item>
                     <v-list-item-icon>
-                      <v-icon color="#C7AD7F"> mdi-paw </v-icon>
+                      <v-icon color="orange"> mdi-paw </v-icon>
                     </v-list-item-icon>
-                    <v-list-item-content>
-                      <v-list-item-title>
-                        지역: {{ lists.orgNm }}
-                      </v-list-item-title>
-                    </v-list-item-content>
+                    <v-card-text> 지역: {{ lists.orgNm }} </v-card-text>
                   </v-list-item>
                   <v-list-item>
                     <v-list-item-icon>
-                      <v-icon color="#C7AD7F"> mdi-paw </v-icon>
+                      <v-icon color="orange"> mdi-paw </v-icon>
                     </v-list-item-icon>
-                    <v-list-item-content>
-                      <v-list-item-title>
-                        발견장소: {{ lists.happenPlace }}
-                      </v-list-item-title>
-                    </v-list-item-content>
+                    <v-card-text>
+                      발견장소: {{ lists.happenPlace }}
+                    </v-card-text>
                   </v-list-item>
                   <v-list-item>
                     <v-list-item-icon>
-                      <v-icon color="#C7AD7F"> mdi-paw </v-icon>
+                      <v-icon color="orange"> mdi-paw </v-icon>
                     </v-list-item-icon>
-                    <v-list-item-content>
-                      <v-list-item-title>
-                        공고기한: {{ lists.noticeSdt }} - {{ lists.noticeEdt }}
-                      </v-list-item-title>
-                    </v-list-item-content>
+                    <v-card-text>
+                      공고기한: {{ lists.noticeSdt }} - {{ lists.noticeEdt }}
+                    </v-card-text>
                   </v-list-item>
                   <v-list-item>
                     <v-list-item-icon>
-                      <v-icon color="#C7AD7F"> mdi-paw </v-icon>
+                      <v-icon color="orange"> mdi-paw </v-icon>
                     </v-list-item-icon>
-                    <v-list-item-content>
-                      <v-list-item-title>
-                        보호센터: {{ lists.careNm }}<br />
-                        (전화번호 :
-                        {{ lists.careTel }})
-                      </v-list-item-title>
-                    </v-list-item-content>
+                    <v-card-text>
+                      보호센터: {{ lists.careNm }}
+                      (전화번호 :
+                      {{ lists.careTel }})
+                    </v-card-text>
                   </v-list-item>
                   <v-list-item>
                     <v-list-item-icon>
-                      <v-icon color="#C7AD7F"> mdi-paw </v-icon>
+                      <v-icon color="orange"> mdi-paw </v-icon>
                     </v-list-item-icon>
-                    <v-list-item-content>
-                      <v-list-item-title>
-                        담당자: {{ lists.chargeNm }}<br />
-                        (전화번호 :{{ lists.officetel }})
-                      </v-list-item-title>
-                    </v-list-item-content>
+                    <v-card-text>
+                      담당자: {{ lists.chargeNm }} (전화번호 :{{
+                        lists.officetel
+                      }})
+                    </v-card-text>
                   </v-list-item>
                   <v-list-item>
                     <v-list-item-icon>
-                      <v-icon color="#C7AD7F"> mdi-paw </v-icon>
+                      <v-icon color="orange"> mdi-paw </v-icon>
                     </v-list-item-icon>
-                    <v-list-item-content>
-                      <v-list-item-title>
-                        특징: {{ lists.specialMark }}
-                      </v-list-item-title>
-                    </v-list-item-content>
+                    <v-card-text> 특징: {{ lists.specialMark }} </v-card-text>
                   </v-list-item>
                 </v-list>
               </v-container>

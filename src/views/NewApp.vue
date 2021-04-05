@@ -1,12 +1,15 @@
 <template>
-  <v-container>
+  <v-container fluid>
     <v-row justify="center">
       <v-col cols="12" sm="10" md="8" lg="6">
-        <v-card flat outlined>
+        <v-card flat outlined class="mx-auto my-12" max-width="80%">
           <v-card-title>입양 신청</v-card-title>
           <v-card-text>
-            <p>상처받은 아이들의 소중한 가족이 되어주세요.</p>
-            <p>입양신청서가 접수되면 심사에 2-3일 정도 소요됩니다.</p>
+            <p>
+              상처받은 아이들의 소중한 가족이 되어주세요.<br />
+              입양신청서가 접수되면 심사에 2-3일 정도 소요되며, 심사결과는
+              입양신청내역조회에서 확인하실 수 있습니다.
+            </p>
           </v-card-text>
         </v-card>
         <v-spacer></v-spacer>
@@ -100,7 +103,12 @@
             <v-textarea v-model="application.reason" outlined></v-textarea>
 
             <v-row justify="center">
-              <v-btn color="success" class="mr-4" @click="createApplication">
+              <v-btn
+                depressed
+                color="orange"
+                class="mr-4 white--text"
+                @click="createApplication"
+              >
                 신청
               </v-btn>
             </v-row>
@@ -163,7 +171,7 @@ export default {
         reason: this.application.reason,
         animalId: this.animal.id,
         noticeNo: this.animal.noticeNo,
-        status: "진행중",
+        status: "",
         requestNo: "",
         animalImg: this.animal.popfile,
       };
@@ -175,28 +183,6 @@ export default {
 
       this.$router.push({ name: "applied", params: { requestNo } });
     },
-
-    // getRefNo() {
-    //   // 신청서 레퍼런스를 어떻게 만들것인가..........
-    //   // 8자리 : 신청연도 (4자리) + 증가하는 숫자(4자리)
-    //   // ex) 20210001
-    //   // let rawNumber = 1;
-    //   let number = this.rawNumber.toLocaleString("en-US", {
-    //     minimumIntegerDigits: 4,
-    //     useGrouping: false,
-    //   });
-
-    //   const date = new Date();
-    //   const year = date.getFullYear();
-
-    //   console.log("저장 전 : " + year + number);
-
-    //   this.application.requestNo = year + number;
-
-    //   this.rawNumber += 1;
-
-    //   console.log("저장 후 : " + this.rawNumber);
-    // },
   },
 };
 </script>
