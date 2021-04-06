@@ -3,11 +3,7 @@
     <v-row justify="center">
       <v-col cols="12" sm="10" md="8" lg="6">
         <v-card class="mx-auto my-12" width="90%" flat outlined>
-          <v-row>
-            <v-card-title class="headline mb-1">
-              {{ animal.noticeNo }}
-            </v-card-title>
-          </v-row>
+          <v-img :src="animal.popfile" alt="유기동물 사진"></v-img>
           <v-card-text>
             <v-container>
               <v-list>
@@ -153,25 +149,26 @@
                 </v-list-item>
               </v-list>
             </v-container>
-          </v-card-text>
-          <template>
-            <v-row justify="center" v-if="isCanceled">
-              <v-btn class="ma-2" depressed @click="backToList">뒤로</v-btn>
-            </v-row>
 
-            <v-row justify="center" v-else>
-              <v-btn class="ma-2" depressed @click="editApp(application.id)"
-                >수정</v-btn
-              >
-              <v-btn
-                class="ma-2"
-                depressed
-                color="error"
-                @click="cancel(application.id)"
-                >취소요청</v-btn
-              >
-            </v-row>
-          </template>
+            <template>
+              <v-row justify="center" v-if="isCanceled">
+                <v-btn class="ma-3" depressed @click="backToList">뒤로</v-btn>
+              </v-row>
+
+              <v-row justify="center" v-else>
+                <v-btn class="ma-3" depressed @click="editApp(application.id)"
+                  >수정</v-btn
+                >
+                <v-btn
+                  class="ma-3"
+                  depressed
+                  color="error"
+                  @click="cancel(application.id)"
+                  >취소요청</v-btn
+                >
+              </v-row>
+            </template>
+          </v-card-text>
         </v-card>
       </v-col>
     </v-row>
@@ -190,8 +187,13 @@ export default {
     isCanceled() {
       const status = this.application.status;
       const cancel = "취소";
+      const reject = "거절";
 
-      if (status == undefined || status.includes(cancel)) {
+      if (
+        status == undefined ||
+        status.includes(cancel) ||
+        status.includes(reject)
+      ) {
         return true;
       } else {
         return false;
@@ -205,9 +207,11 @@ export default {
   methods: {
     async getAnimal() {
       const id = this.$route.params.id;
+      console.log("id :" + id);
       const result = await api.details(id);
       if (result.status == 200) {
         this.animal = result.data;
+        console.log(this.animal);
       }
     },
 
@@ -217,10 +221,13 @@ export default {
       const result = await request.get(requestNo, name);
       if (result.status == 200) {
         this.application = result.data[0];
+        console.log(this.application);
       }
     },
 
     editApp(id) {
+      console.log("입양신청서 수정 id");
+      console.log(id);
       this.$router.push({ name: "editApp", params: { id } });
     },
 

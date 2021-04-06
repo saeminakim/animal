@@ -8,21 +8,27 @@
             <v-img :src="lists.popfile" alt="유기동물 사진"></v-img>
             <v-row>
               <v-col>
-                <v-card-title class="headline mb-1">{{
+                <v-card-title class="headline mt-2">{{
                   lists.kindCd
                 }}</v-card-title>
               </v-col>
-              <v-col>
+              <v-col v-if="isApplied">
                 <v-btn
                   depressed
                   absolute
                   right
                   x-large
                   color="orange"
-                  class="white--text"
+                  class="ma-2 white--text"
                   @click="applyAdoption(lists.id)"
                   >입양신청<v-icon>mdi-paw</v-icon></v-btn
                 >
+              </v-col>
+              <v-col cols="auto" v-else>
+                <v-chip class="ma-2" large color="orange" text-color="white">
+                  입양완료
+                  <v-icon> mdi-paw </v-icon>
+                </v-chip>
               </v-col>
             </v-row>
             <v-card-text>
@@ -113,19 +119,28 @@ export default {
   mounted() {
     this.getDetails();
   },
+  computed: {
+    isApplied() {
+      const status = this.lists.processState;
+      const adoption = "입양완료";
+
+      if (status == undefined || status.includes(adoption)) {
+        return false;
+      } else {
+        return true;
+      }
+    },
+  },
   methods: {
     async getDetails() {
       let id = this.$route.params.id;
       const result = await api.details(id);
-      console.log("----result.data----");
-      console.log(result.data);
+
       if (result.status == 200) {
         this.lists = result.data;
       }
     },
     applyAdoption(id) {
-      console.log("----입양신청 버튼 클릭시 id----");
-      console.log(id);
       this.$router.push({ name: "apply", params: { id } });
     },
     backToList() {

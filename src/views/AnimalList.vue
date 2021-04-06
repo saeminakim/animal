@@ -3,7 +3,7 @@
     <menu-tabs></menu-tabs>
     <!-- 필터 UI -->
     <div>
-      <v-row justify="center">
+      <v-row justify="center" class="mt-2">
         <v-col cols="2">
           <v-select
             :items="filterOptions.options.opt_sido"
@@ -34,16 +34,6 @@
             class="ma-2"
           ></v-select>
         </v-col>
-        <!-- <v-col cols="2">
-          <v-select
-            :items="filteredKindData"
-            v-model="filterOptions.items.animal_id"
-            label="상세 품종"
-            dense
-            outlined
-            class="ma-2"
-          ></v-select>
-        </v-col> -->
         <v-col cols="2">
           <v-select
             :items="filterOptions.options.opt_status"
@@ -77,6 +67,7 @@
           outlined
           class="mx-auto my-12"
           max-width="450"
+          min-height="500"
           @click="seeDetails(item.id)"
         >
           <v-img height="300" :src="item.popfile" alt="유기동물 사진"></v-img>
@@ -468,7 +459,6 @@ export default {
     },
 
     async handlePageChange(value) {
-      console.log("페이지 value : " + value);
       this.value = value;
       this.page = value - 1;
 
@@ -509,19 +499,12 @@ export default {
 
       if (this.sidoCode != "" && this.typeCode == "") {
         this.getSido();
-        console.log("시도 :" + this.sido);
       } else if (this.sidoCode != "" && this.typeCode != "") {
         this.getSido();
-        console.log("시도 :" + this.sido);
         this.getType();
-        console.log("축종 : " + this.type);
       } else if (this.sidoCode == "" && this.typeCode != "") {
         this.getType();
-        console.log("축종 : " + this.type);
-      } else {
-        console.log("상태 : " + this.status);
       }
-
       this.page = 0;
       this.getList(this.sido, this.gugun, this.type, this.status, this.page);
     },

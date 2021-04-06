@@ -37,19 +37,26 @@ export default {
     requestNo: null,
     name: "",
   }),
+  mounted() {
+    document.querySelector(".v-toolbar").style.flex = "none";
+  },
   methods: {
     async getApplication() {
       const requestNo = this.requestNo;
       const name = this.name;
-      const result = await request.get(requestNo, name);
+      try {
+        const result = await request.get(requestNo, name);
 
-      if (result.status == 200) {
-        const id = result.data[0].id;
+        if (result.status == 200) {
+          const id = result.data[0].animalId;
 
-        this.$router.push({
-          name: "appDetails",
-          params: { id, requestNo, name },
-        });
+          this.$router.push({
+            name: "appDetails",
+            params: { id, requestNo, name },
+          });
+        }
+      } catch (e) {
+        alert("입양신청번호와 이름을 확인하세요.");
       }
     },
   },

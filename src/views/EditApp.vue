@@ -1,25 +1,17 @@
 <template>
   <v-container fluid>
     <v-row justify="center">
-      <v-col cols="12" sm="10" md="8" lg="6">
-        <v-card flat>
-          <v-card-title>입양신청서 수정</v-card-title>
-          <v-card-text>
-            <p>수정 수정</p>
-          </v-card-text>
-        </v-card>
-        <v-spacer></v-spacer>
-      </v-col>
-    </v-row>
-    <v-row justify="center">
       <!-- 입양신청서 폼 -->
       <v-col cols="12" sm="10" md="8" lg="6">
         <v-card flat>
           <v-img :src="animal.popfile" alt="유기동물 사진"></v-img>
           <v-card-title
-            >입양신청번호 : {{ application.requestNo }}</v-card-title
+            ><v-chip class="ma-2" color="orange" text-color="white">
+              <v-icon> mdi-paw </v-icon>
+              입양신청번호
+            </v-chip>
+            {{ application.requestNo }}</v-card-title
           >
-          <v-card-subtitle>{{ animal.noticeNo }}</v-card-subtitle>
           <v-form>
             <v-card-text>1. 이름 (수정 불가)</v-card-text>
             <v-text-field

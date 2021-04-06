@@ -28,24 +28,6 @@
   </v-app>
 </template>
 
-<style lang="scss">
-.header {
-  overflow: hidden;
-  width: 100%;
-  height: auto;
-
-  img {
-    width: 100%;
-    vertical-align: top;
-  }
-}
-
-.row {
-  margin: 0 !important;
-}
-</style>
-
-
 <script>
 export default {
   name: "App",
