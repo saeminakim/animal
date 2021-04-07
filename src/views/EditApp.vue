@@ -96,8 +96,8 @@
 
             <v-row justify="center">
               <v-btn
-                color="success"
-                class="mr-4"
+                color="primary"
+                class="ma-4"
                 @click="sendEdit(application)"
               >
                 수정

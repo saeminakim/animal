@@ -151,7 +151,7 @@
             </v-container>
 
             <template>
-              <v-row justify="center" v-if="isCanceled">
+              <v-row justify="center" v-if="isApplied">
                 <v-btn class="ma-3" depressed @click="backToList">뒤로</v-btn>
               </v-row>
 
@@ -184,19 +184,15 @@ export default {
     application: [],
   }),
   computed: {
-    isCanceled() {
+    isApplied() {
       const status = this.application.status;
-      const cancel = "취소";
-      const reject = "거절";
+      console.log(status);
+      const applied = "신청";
 
-      if (
-        status == undefined ||
-        status.includes(cancel) ||
-        status.includes(reject)
-      ) {
-        return true;
-      } else {
+      if (status == undefined || status.includes(applied)) {
         return false;
+      } else {
+        return true;
       }
     },
   },

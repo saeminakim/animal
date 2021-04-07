@@ -18,6 +18,12 @@
 
 <script>
 export default {
+  data: () => ({
+    requestNo: "",
+  }),
+  mounted() {
+    document.querySelector(".v-toolbar").style.flex = "none";
+  },
   methods: {
     backToList() {
       return this.$router.push("/");

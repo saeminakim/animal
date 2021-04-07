@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-container>
     <menu-tabs></menu-tabs>
     <v-container fluid>
       <v-row justify="center">
@@ -106,7 +106,7 @@
         </v-col>
       </v-row>
     </v-container>
-  </div>
+  </v-container>
 </template>
 
 <script>

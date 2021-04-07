@@ -12,11 +12,6 @@
   <!-- </v-toolbar> -->
   <!-- </v-container> -->
 </template>
-<style scoped>
-.v-toolbar__image {
-  display: none;
-}
-</style>
 
 <script>
 export default {
@@ -34,6 +29,19 @@ export default {
         this.$router.push(menu.path);
       }
     },
+    async signOut() {
+      console.log("----sign out----");
+      this.$store.dispatch("profile/signout");
+    },
+  },
+  computed: {
+    profile() {
+      return this.$store.state.profile.data;
+    },
+  },
+  mounted() {
+    console.log(this.$store.state.profile);
+    this.$store.dispatch("profile/setProfile");
   },
 };
 </script>
