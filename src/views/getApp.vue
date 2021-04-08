@@ -2,7 +2,7 @@
   <v-container>
     <menu-tabs></menu-tabs>
     <v-container>
-      <v-row justify="center">
+      <v-row justify="center" class="mt-10">
         <v-col cols="2"> <p align="center">입양신청번호</p></v-col>
 
         <v-col cols="2">
@@ -18,7 +18,7 @@
       <v-row justify="center">
         <v-btn
           color="orange"
-          class="white--text"
+          class="white--text mt-2"
           depressed
           @click="getApplication"
           >조회</v-btn
@@ -37,9 +37,7 @@ export default {
     requestNo: null,
     name: "",
   }),
-  mounted() {
-    document.querySelector(".v-toolbar").style.flex = "none";
-  },
+
   methods: {
     async getApplication() {
       const requestNo = this.requestNo;

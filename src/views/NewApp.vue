@@ -208,9 +208,7 @@ export default {
       };
 
       const result = await request.post(application);
-      console.log(result);
       const requestNo = result.data.requestNo;
-      console.log(requestNo);
 
       this.$router.push({ name: "applied", params: { requestNo } });
     },

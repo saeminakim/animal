@@ -31,14 +31,12 @@ export default {
   }),
   mounted() {
     this.getApp();
-    document.querySelector(".v-toolbar").style.flex = "none";
   },
   methods: {
     async getApp() {
       const id = this.$route.params.id;
       const result = await request.detail(id);
-      console.log("---입양신청 취소---");
-      console.log(result.data);
+
       if (result.status == 200) {
         this.application = result.data;
         this.application.reason = "";
@@ -47,8 +45,7 @@ export default {
 
     async cancel(application) {
       this.application.status = "취소신청";
-      console.log("application");
-      console.log(application);
+
       const id = this.application.id;
       const result = await request.cancel(id, application);
       console.log("---입양신청 취소 결과---");

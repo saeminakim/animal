@@ -12,7 +12,7 @@
             </v-chip>
             {{ application.requestNo }}</v-card-title
           >
-          <v-form>
+          <v-form ref="form" v-model="valid" lazy-validation>
             <v-card-text>1. 이름 (수정 불가)</v-card-text>
             <v-text-field
               v-model="application.name"
@@ -26,6 +26,7 @@
             <v-text-field
               v-model="application.mobile"
               required
+              :rules="rules"
               outlined
               dense
             ></v-text-field>
@@ -34,12 +35,18 @@
             <v-text-field
               v-model="application.email"
               required
+              :rules="rules"
               outlined
               dense
             ></v-text-field>
 
             <v-card-text>4. 성별</v-card-text>
-            <v-radio-group v-model="application.gender">
+            <v-radio-group
+              v-model="application.gender"
+              :rules="rules"
+              mandatory
+              row
+            >
               <v-radio label="남성" value="남성"></v-radio>
               <v-radio label="여성" value="여성"></v-radio>
             </v-radio-group>
@@ -48,6 +55,7 @@
             <v-text-field
               v-model="application.address"
               required
+              :rules="rules"
               outlined
               dense
             ></v-text-field>
@@ -56,6 +64,7 @@
             <v-text-field
               v-model="application.job"
               required
+              :rules="rules"
               outlined
               dense
             ></v-text-field>
@@ -65,17 +74,29 @@
             >
             <v-textarea
               v-model="application.familyMember"
+              :rules="rules"
+              required
               outlined
             ></v-textarea>
 
             <v-card-text>8. 모든 가족구성원이 입양에 동의했나요?</v-card-text>
-            <v-radio-group v-model="application.familyAgreed">
+            <v-radio-group
+              v-model="application.familyAgreed"
+              :rules="rules"
+              mandatory
+              row
+            >
               <v-radio label="네" value="동의"></v-radio>
               <v-radio label="아니오" value="비동의"></v-radio>
             </v-radio-group>
 
             <v-card-text>9. 키우고 계신 반려동물이 있나요?</v-card-text>
-            <v-radio-group v-model="application.petAtHome">
+            <v-radio-group
+              v-model="application.petAtHome"
+              :rules="rules"
+              row
+              mandatory
+            >
               <v-radio label="네" value="Y"></v-radio>
               <v-radio label="아니오" value="N"></v-radio>
             </v-radio-group>
@@ -87,12 +108,18 @@
             <v-text-field
               v-model="application.houseType"
               required
+              :rules="rules"
               outlined
               dense
             ></v-text-field>
 
             <v-card-text>11. 입양을 희망하는 이유는 무엇인가요?</v-card-text>
-            <v-textarea v-model="application.reason" outlined></v-textarea>
+            <v-textarea
+              v-model="application.reason"
+              outlined
+              :rules="rules"
+              required
+            ></v-textarea>
 
             <v-row justify="center">
               <v-btn
@@ -117,6 +144,8 @@ export default {
   data: () => ({
     animal: [],
     application: [],
+    valid: true,
+    rules: [(v) => !!v || "필수 항목입니다."],
   }),
   mounted() {
     this.getApp();
@@ -144,11 +173,8 @@ export default {
 
     async sendEdit(application) {
       const id = this.application.id;
-      console.log("신청서id");
-      console.log(id);
       const result = await request.edit(id, application);
-      console.log("신청서 result");
-      console.log(result.data);
+
       if (result.status == 200) {
         this.application = result.data;
 

@@ -1,16 +1,10 @@
 <template>
-  <!-- <v-container grid-list-xl> -->
-  <!-- <v-toolbar flat height="15px"> -->
-  <!-- <template v-slot:extension> -->
-  <v-tabs align-with-title>
+  <v-tabs align-with-title v-model="selectedTab">
     <v-tabs-slider color="orange"></v-tabs-slider>
     <v-tab v-for="(menu, i) in menus" :key="i" @click="navigateTo(menu)">
       {{ menu.text }}
     </v-tab>
   </v-tabs>
-  <!-- </template> -->
-  <!-- </v-toolbar> -->
-  <!-- </v-container> -->
 </template>
 
 <script>
@@ -21,6 +15,7 @@ export default {
         { text: "유기동물", path: "/" },
         { text: "입양신청내역조회", path: "/application" },
       ],
+      selectedTab: 1,
     };
   },
   methods: {
@@ -40,8 +35,13 @@ export default {
     },
   },
   mounted() {
-    console.log(this.$store.state.profile);
+    // console.log(this.$store.state.profile);
     this.$store.dispatch("profile/setProfile");
+    this.menus.forEach((menu, i) => {
+      if (this.$route.path === menu.path) {
+        this.selectedTab = i;
+      }
+    });
   },
 };
 </script>

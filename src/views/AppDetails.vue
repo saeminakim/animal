@@ -186,7 +186,6 @@ export default {
   computed: {
     isApplied() {
       const status = this.application.status;
-      console.log(status);
       const applied = "신청";
 
       if (status == undefined || status.includes(applied)) {
@@ -203,11 +202,9 @@ export default {
   methods: {
     async getAnimal() {
       const id = this.$route.params.id;
-      console.log("id :" + id);
       const result = await api.details(id);
       if (result.status == 200) {
         this.animal = result.data;
-        console.log(this.animal);
       }
     },
 
@@ -217,13 +214,10 @@ export default {
       const result = await request.get(requestNo, name);
       if (result.status == 200) {
         this.application = result.data[0];
-        console.log(this.application);
       }
     },
 
     editApp(id) {
-      console.log("입양신청서 수정 id");
-      console.log(id);
       this.$router.push({ name: "editApp", params: { id } });
     },
 

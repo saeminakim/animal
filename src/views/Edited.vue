@@ -31,10 +31,6 @@ export default {
   data: () => ({
     requestNo: "",
   }),
-  mounted() {
-    this.getRefNo();
-    document.querySelector(".v-toolbar").style.flex = "none";
-  },
   methods: {
     backToList() {
       return this.$router.push("/");

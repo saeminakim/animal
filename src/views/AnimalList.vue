@@ -70,9 +70,10 @@
           min-height="500"
           @click="seeDetails(item.id)"
         >
-          <v-img height="300" :src="item.popfile" alt="유기동물 사진"></v-img>
+          <v-img height="320" :src="item.popfile" alt="유기동물 사진"></v-img>
 
-          <v-card-title>{{ item.processState }}</v-card-title>
+          <v-card-title>[{{ item.processState }}]</v-card-title>
+          <v-divider></v-divider>
 
           <v-card-text>
             <v-container>
@@ -106,12 +107,6 @@
     ></v-pagination>
   </v-container>
 </template>
-
-<style scoped>
-.pageItem {
-  border-width: 0px !important;
-}
-</style>
 
 <script>
 import filterOptions from "../assets/js/DataForFilter";
@@ -154,18 +149,13 @@ export default {
 
   methods: {
     async getList() {
-      console.log("현재 목록 상태 : " + this.currentList);
-
       // 전체 목록보기 상태일 때
       if (this.currentList == "전체") {
         try {
           const result = await api.list(this.page);
 
-          console.log(result.data);
-
           if (result.status == 200) {
             this.lists = result.data.content;
-            // this.page = result.data.number + 1;
             this.totalPages = result.data.totalPages;
           }
         } catch (e) {
@@ -178,85 +168,77 @@ export default {
         console.log("현재 목록 상태 : " + this.currentList);
         console.log(arguments);
 
-        // 시도 널 널 널
-        if (
-          arguments[0] != "" &&
-          arguments[1] == null &&
-          arguments[2] == "" &&
-          arguments[3] == ""
-        ) {
-          console.log("시도 널 널 널");
-          try {
+        try {
+          // 시도 널 널 널
+          if (
+            arguments[0] != "" &&
+            arguments[1] == null &&
+            arguments[2] == "" &&
+            arguments[3] == ""
+          ) {
+            console.log("시도 널 널 널");
             const result = await api.sido(this.sido, this.page);
-            console.log(result);
 
             if (result.status == 200) {
-              this.lists = result.data.content;
-              this.page = result.data.number + 1;
-              this.totalPages = result.data.totalPages;
+              this.saveData(result);
             }
-          } catch (e) {
-            alert("검색 결과가 없습니다.");
           }
-        }
-        // 시도 구군 널 널
-        else if (
-          arguments[0] != "" &&
-          arguments[1] != null &&
-          arguments[2] == "" &&
-          arguments[3] == ""
-        ) {
-          console.log("시도 구군 널 널");
-          try {
+          // 시도 구군 널 널
+          else if (
+            arguments[0] != "" &&
+            arguments[1] != null &&
+            arguments[2] == "" &&
+            arguments[3] == ""
+          ) {
+            console.log("시도 구군 널 널");
             const result = await api.sidoGugun(
               this.sido,
               this.gugun,
               this.page
             );
-            console.log(result);
-
             if (result.status == 200) {
-              this.lists = result.data.content;
-              this.page = result.data.number + 1;
-              this.totalPages = result.data.totalPages;
+              this.saveData(result);
             }
-          } catch (e) {
-            alert("검색 결과가 없습니다.");
           }
-        }
 
-        // 시도 널 축종 널
-        else if (
-          arguments[0] != "" &&
-          arguments[1] == null &&
-          arguments[2] != "" &&
-          arguments[3] == ""
-        ) {
-          console.log("시도 널 축종 널");
-          try {
+          // 시도 널 축종 널
+          else if (
+            arguments[0] != "" &&
+            arguments[1] == null &&
+            arguments[2] != "" &&
+            arguments[3] == ""
+          ) {
+            console.log("시도 널 축종 널");
+
+            const result = await api.sidoType(this.sido, this.type, this.page);
+            if (result.status == 200) {
+              this.saveData(result);
+            }
+          }
+
+          // 시도 널 축종 널
+          else if (
+            arguments[0] != "" &&
+            arguments[1] == null &&
+            arguments[2] != "" &&
+            arguments[3] == ""
+          ) {
+            console.log("시도 널 축종 널");
             const result = await api.sidoType(this.sido, this.type, this.page);
 
-            console.log(result);
-
             if (result.status == 200) {
-              this.lists = result.data.content;
-              this.page = result.data.number + 1;
-              this.totalPages = result.data.totalPages;
+              this.saveData(result);
             }
-          } catch (e) {
-            alert("검색 결과가 없습니다.");
           }
-        }
 
-        // 시도 구군 축종 널
-        else if (
-          arguments[0] != "" &&
-          arguments[1] != null &&
-          arguments[2] != "" &&
-          arguments[3] == ""
-        ) {
-          console.log("시도 구군 축종 널");
-          try {
+          // 시도 구군 축종 널
+          else if (
+            arguments[0] != "" &&
+            arguments[1] != null &&
+            arguments[2] != "" &&
+            arguments[3] == ""
+          ) {
+            console.log("시도 구군 축종 널");
             const result = await api.sidoGugunType(
               this.sido,
               this.gugun,
@@ -264,27 +246,19 @@ export default {
               this.page
             );
 
-            console.log(result);
-
             if (result.status == 200) {
-              this.lists = result.data.content;
-              this.page = result.data.number + 1;
-              this.totalPages = result.data.totalPages;
+              this.saveData(result);
             }
-          } catch (e) {
-            alert("검색 결과가 없습니다.");
           }
-        }
 
-        // 시도 널 축종 상태
-        else if (
-          arguments[0] != "" &&
-          arguments[1] == null &&
-          arguments[2] != "" &&
-          arguments[3] != ""
-        ) {
-          console.log("시도 널 축종 상태");
-          try {
+          // 시도 널 축종 상태
+          else if (
+            arguments[0] != "" &&
+            arguments[1] == null &&
+            arguments[2] != "" &&
+            arguments[3] != ""
+          ) {
+            console.log("시도 널 축종 상태");
             const result = await api.sidoTypeStatus(
               this.sido,
               this.type,
@@ -292,27 +266,18 @@ export default {
               this.page
             );
 
-            console.log(result);
-
             if (result.status == 200) {
-              this.lists = result.data.content;
-              this.page = result.data.number + 1;
-              this.totalPages = result.data.totalPages;
+              this.saveData(result);
             }
-          } catch (e) {
-            alert("검색 결과가 없습니다.");
           }
-        }
-
-        // 시도 구군 축종 상태
-        else if (
-          arguments[0] != "" &&
-          arguments[1] != null &&
-          arguments[2] != "" &&
-          arguments[3] != ""
-        ) {
-          console.log("시도 구군 축종 상태");
-          try {
+          // 시도 구군 축종 상태
+          else if (
+            arguments[0] != "" &&
+            arguments[1] != null &&
+            arguments[2] != "" &&
+            arguments[3] != ""
+          ) {
+            console.log("시도 구군 축종 상태");
             const result = await api.sidoGugunTypeStatus(
               this.sido,
               this.gugun,
@@ -321,141 +286,108 @@ export default {
               this.page
             );
 
-            console.log(result);
-
             if (result.status == 200) {
-              this.lists = result.data.content;
-              this.page = result.data.number + 1;
-              this.totalPages = result.data.totalPages;
+              this.saveData(result);
             }
-          } catch (e) {
-            alert("검색 결과가 없습니다.");
           }
-        }
 
-        // 널 널 축종 널
-        else if (
-          arguments[0] == "" &&
-          arguments[1] == null &&
-          arguments[2] != "" &&
-          arguments[3] == ""
-        ) {
-          console.log("널 널 축종 널");
-          try {
+          // 널 널 축종 널
+          else if (
+            arguments[0] == "" &&
+            arguments[1] == null &&
+            arguments[2] != "" &&
+            arguments[3] == ""
+          ) {
+            console.log("널 널 축종 널");
             const result = await api.type(this.type, this.page);
-            console.log(result);
 
             if (result.status == 200) {
-              this.lists = result.data.content;
-              this.page = result.data.number + 1;
-              this.totalPages = result.data.totalPages;
+              this.saveData(result);
             }
-          } catch (e) {
-            alert("검색 결과가 없습니다.");
           }
-        }
 
-        // 널 널 축종 상태
-        else if (
-          arguments[0] == "" &&
-          arguments[1] == null &&
-          arguments[2] != "" &&
-          arguments[3] != ""
-        ) {
-          console.log("널 널 축종 상태");
-          try {
+          // 널 널 축종 상태
+          else if (
+            arguments[0] == "" &&
+            arguments[1] == null &&
+            arguments[2] != "" &&
+            arguments[3] != ""
+          ) {
+            console.log("널 널 축종 상태");
             const result = await api.typeStatus(
               this.type,
               this.status,
               this.page
             );
-            console.log(result);
 
             if (result.status == 200) {
-              this.lists = result.data.content;
-              this.page = result.data.number + 1;
-              this.totalPages = result.data.totalPages;
+              this.saveData(result);
             }
-          } catch (e) {
-            alert("검색 결과가 없습니다.");
           }
-        }
 
-        // 시도 널 널 상태
-        else if (
-          arguments[0] != "" &&
-          arguments[1] == null &&
-          arguments[2] == "" &&
-          arguments[3] != ""
-        ) {
-          console.log("시도 널 널 상태");
-          try {
+          // 시도 널 널 상태
+          else if (
+            arguments[0] != "" &&
+            arguments[1] == null &&
+            arguments[2] == "" &&
+            arguments[3] != ""
+          ) {
+            console.log("시도 널 널 상태");
             const result = await api.sidoStatus(
               this.sido,
               this.status,
               this.page
             );
-            console.log(result);
 
             if (result.status == 200) {
-              this.lists = result.data.content;
-              this.page = result.data.number + 1;
-              this.totalPages = result.data.totalPages;
+              this.saveData(result);
             }
-          } catch (e) {
-            alert("검색 결과가 없습니다.");
           }
-        }
 
-        // 시도 구군 널 상태
-        else if (
-          arguments[0] != "" &&
-          arguments[1] != null &&
-          arguments[2] == "" &&
-          arguments[3] != ""
-        ) {
-          console.log("시도 구군 널 상태");
-          try {
+          // 시도 구군 널 상태
+          else if (
+            arguments[0] != "" &&
+            arguments[1] != null &&
+            arguments[2] == "" &&
+            arguments[3] != ""
+          ) {
+            console.log("시도 구군 널 상태");
             const result = await api.sidoGugunStatus(
               this.sido,
               this.gugun,
               this.status,
               this.page
             );
-            console.log(result);
 
             if (result.status == 200) {
-              this.lists = result.data.content;
-              this.page = result.data.number + 1;
-              this.totalPages = result.data.totalPages;
+              this.saveData(result);
             }
-          } catch (e) {
-            alert("검색 결과가 없습니다.");
           }
-        }
 
-        // 널 널 널 상태
-        else if (
-          arguments[0] == "" &&
-          arguments[1] == null &&
-          arguments[2] == "" &&
-          arguments[3] != ""
-        ) {
-          console.log("널 널 널 상태");
-          try {
+          // 널 널 널 상태
+          else if (
+            arguments[0] == "" &&
+            arguments[1] == null &&
+            arguments[2] == "" &&
+            arguments[3] != ""
+          ) {
+            console.log("널 널 널 상태");
             const result = await api.status(this.status, this.page);
-            console.log(result);
 
             if (result.status == 200) {
-              this.lists = result.data.content;
-              this.page = result.data.number + 1;
-              this.totalPages = result.data.totalPages;
+              this.saveData(result);
             }
-          } catch (e) {
-            alert("검색 결과가 없습니다.");
           }
+        } catch (e) {
+          alert("검색 결과가 없습니다.");
         }
       }
+    },
+
+    saveData(result) {
+      this.lists = result.data.content;
+      this.page = result.data.number + 1;
+      this.totalPages = result.data.totalPages;
     },
 
     async handlePageChange(value) {
