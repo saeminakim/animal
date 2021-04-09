@@ -3,7 +3,7 @@ module.exports = {
     'vuetify'
   ],
 
-  publicPath: '/animal',
+  publicPath: '',
 
   pluginOptions: {
     s3Deploy: {
