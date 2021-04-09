@@ -65,21 +65,7 @@ const routes = [
     name: 'canceled',
     component: () => import('../views/Canceled.vue')
   },
-  {
-    path: '/lostandfoundanimal',
-    name: 'lostAndFoundAnimal',
-    component: () => import('../views/LostAndFoundAnimal.vue')
-  },
-  {
-    path: '/reviewmain',
-    name: 'reviewMain',
-    component: () => import('../views/ReviewMain.vue')
-  },
-  {
-    path: '/manager',
-    name: 'manager',
-    component: () => import('../views/Manager.vue')
-  },
+
   {
     path: '/about',
     name: 'about',
@@ -96,7 +82,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  mode: 'history',
+  // mode: 'history',
   base: process.env.BASE_URL,
   routes
 })

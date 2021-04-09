@@ -31,6 +31,9 @@ export default {
   data: () => ({
     requestNo: "",
   }),
+  mounted() {
+    this.getRefNo();
+  },
   methods: {
     backToList() {
       return this.$router.push("/");

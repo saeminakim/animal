@@ -2,7 +2,13 @@
   <v-app>
     <div width="100%" height="250" flat>
       <v-img src="./assets/header.jpg" />
-      <v-btn icon color="#f2f2f2" absolute right top
+      <v-btn
+        icon
+        color="#f2f2f2"
+        absolute
+        right
+        top
+        href="http://mongyang-manager.s3-website.ap-northeast-2.amazonaws.com/"
         ><v-icon>mdi-cog-outline</v-icon></v-btn
       >
     </div>
@@ -13,7 +19,7 @@
           value="left"
           v-for="(item, i) in items"
           :key="i"
-          @click="navigateTo(item)"
+          :href="item.src"
           width="20%"
           height="70px"
           text
@@ -40,10 +46,25 @@ export default {
     drawer: false, // drawer의 기본 값
     selectedItem: 0,
     items: [
-      { text: "유기동물", path: "/" },
-      { text: "분실/보호동물", path: "/" },
-      { text: "입양후기", path: "/" },
-      { text: "동물병원", path: "/" },
+      {
+        text: "유기동물",
+        src: "http://animal-vueapp.s3-website.ap-northeast-2.amazonaws.com/",
+      },
+      {
+        text: "분실/보호동물",
+        src:
+          "http://mongyang-lostandfound.s3-website.ap-northeast-2.amazonaws.com/",
+      },
+      {
+        text: "입양후기",
+        src:
+          "http://animal-teamproject.s3-website.ap-northeast-2.amazonaws.com/ReviewMain",
+      },
+      {
+        text: "동물병원",
+        src:
+          "http://animal-teamproject.s3-website.ap-northeast-2.amazonaws.com/hospital",
+      },
     ],
   }),
 
@@ -58,12 +79,13 @@ export default {
   //   this.$store.dispatch("profile/setProfile");
   // },
 
-  methods: {
-    navigateTo(item) {
-      if (this.$route.path != item.path) {
-        this.$router.push(item.path);
-      }
-    },
-  },
+  // methods: {
+  //   navigateTo(item) {
+  //     console.log(this.$route);
+  //     if (this.$route.path != item.path) {
+  //       this.$router.push(item.path);
+  //     }
+  //   },
+  // },
 };
 </script>

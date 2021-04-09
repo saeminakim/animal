@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     backToList() {
-      return this.$router.push("/animals");
+      return this.$router.push("/");
     },
 
     getRefNo() {
