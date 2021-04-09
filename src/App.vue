@@ -26,6 +26,12 @@
   </v-app>
 </template>
 
+<style lang="scss">
+.row {
+  margin: 0 !important;
+}
+</style>
+
 <script>
 export default {
   name: "App",

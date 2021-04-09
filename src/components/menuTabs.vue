@@ -24,19 +24,19 @@ export default {
         this.$router.push(menu.path);
       }
     },
-    async signOut() {
-      console.log("----sign out----");
-      this.$store.dispatch("profile/signout");
-    },
+    // async signOut() {
+    //   console.log("----sign out----");
+    //   this.$store.dispatch("profile/signout");
+    // },
   },
-  computed: {
-    profile() {
-      return this.$store.state.profile.data;
-    },
-  },
+  // computed: {
+  //   profile() {
+  //     return this.$store.state.profile.data;
+  //   },
+  // },
   mounted() {
     // console.log(this.$store.state.profile);
-    this.$store.dispatch("profile/setProfile");
+    // this.$store.dispatch("profile/setProfile");
     this.menus.forEach((menu, i) => {
       if (this.$route.path === menu.path) {
         this.selectedTab = i;
