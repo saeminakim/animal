@@ -15,6 +15,8 @@
                 <v-btn
                   depressed
                   x-large
+                  absolute
+                  right
                   color="orange"
                   class="ma-2 white--text"
                   @click="applyAdoption(lists.id)"
@@ -27,18 +29,6 @@
                   <v-icon> mdi-paw </v-icon>
                 </v-chip>
               </v-col>
-              <v-col cols="auto" v-if="profile"
-                ><v-btn
-                  color="yellow"
-                  class="ma-2"
-                  absolute
-                  right
-                  depressed
-                  fab
-                  @click="kakaoLogin"
-                  ><v-icon>mdi-chat</v-icon></v-btn
-                ></v-col
-              >
             </v-row>
             <v-card-text>
               <v-container>
@@ -121,7 +111,7 @@
 <script src="../assets/js/Common?t=1"></script>
 <script>
 import api from "../api/animal";
-import common from "../assets/js/Common";
+// import common from "../assets/js/Common";
 
 export default {
   name: "animalDetails",
@@ -142,10 +132,6 @@ export default {
         return true;
       }
     },
-    profile() {
-      console.log(this.$store.state.profile.data);
-      return this.$store.state.profile.data;
-    },
   },
   methods: {
     async getDetails() {
@@ -157,28 +143,14 @@ export default {
       }
     },
     applyAdoption(id) {
-      this.$router.push({ name: "apply", params: { id } });
+      if (this.$store.state.profile.date != undefined) {
+        this.$router.push({ name: "apply", params: { id } });
+      } else {
+        this.$router.push({ name: "applytype", params: { id } });
+      }
     },
     backToList() {
       return this.$router.go(-1);
-    },
-    kakaoLogin() {
-      // REST API 키
-      const clientId = "0c1e9fde3a67eb6041ffaec00820db59";
-      // 카카오 로그인에 등록한 redirect url를 등록
-      const redirectUri = common.getKakaoRedirectUrl(common.ENV);
-      console.log("----redirectUri----");
-      console.log(redirectUri);
-
-      let url = "https://kauth.kakao.com/oauth/authorize";
-      url += `?client_id=${clientId}&redirect_uri=${redirectUri}`;
-      url += "&response_type=code";
-      // // 변경되거나 추가적인 동의항목
-      // url += "&scope=account_email,profile";
-
-      // 브라우저를 인가코드 요청 주소로 이동
-      // 인증 사업자의 로그인 화면으로 이동됨
-      window.location.href = url;
     },
   },
 };

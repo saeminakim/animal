@@ -15,7 +15,7 @@ export default {
         { text: "유기동물", path: "/" },
         { text: "입양신청내역조회", path: "/application" },
       ],
-      selectedTab: 1,
+      selectedTab: 0,
     };
   },
   methods: {

@@ -42,7 +42,6 @@ export default {
     },
 
     getRefNo() {
-      console.log(this.$route.params.requestNo);
       this.requestNo = this.$route.params.requestNo;
     },
   },

@@ -172,15 +172,20 @@ export default {
     valid: true,
     rules: [(v) => !!v || "필수 항목입니다."],
   }),
+
   mounted() {
     this.getAnimal();
-  },
 
+    if (this.$store.state.profile.data) {
+      this.application.name = this.$store.state.profile.data.name;
+      this.application.email = this.$store.state.profile.data.email;
+    }
+  },
   methods: {
     async getAnimal() {
       const id = this.$route.params.id;
       const result = await api.details(id);
-      console.log(result.data);
+
       if (result.status == 200) {
         this.animal = result.data;
       }

@@ -16,12 +16,8 @@ export default {
   }),
   mutations: {
     setProfile(state, payload) {
-      console.log("-----state-----");
-      console.log(state);
-      console.log("-----payload-----");
-      console.log(payload);
 
-      state.date = { ...payload };
+      state.data = { ...payload };
     }
   },
   actions: {
@@ -31,14 +27,12 @@ export default {
         const res = await api.get();
         context.commit('setProfile', res.data);
       } else {
-        console.log(process.env.VUE_APP_LOGIN_URL);
         window.location.href = process.env.VUE_APP_LOGIN_URL;
       }
     },
     async signOut(context) {
       let res = await api.signout();
-      console.log(res);
-
+      console.log(res)
       context.commit('setProfile', context.state.init);
 
       cookie.clearSession();

@@ -165,9 +165,6 @@ export default {
 
       // 필터 적용된 목록보기일 때
       else if (this.currentList == "필터") {
-        console.log("현재 목록 상태 : " + this.currentList);
-        console.log(arguments);
-
         try {
           // 시도 널 널 널
           if (
@@ -176,7 +173,6 @@ export default {
             arguments[2] == "" &&
             arguments[3] == ""
           ) {
-            console.log("시도 널 널 널");
             const result = await api.sido(this.sido, this.page);
 
             if (result.status == 200) {
@@ -190,7 +186,6 @@ export default {
             arguments[2] == "" &&
             arguments[3] == ""
           ) {
-            console.log("시도 구군 널 널");
             const result = await api.sidoGugun(
               this.sido,
               this.gugun,
@@ -208,8 +203,6 @@ export default {
             arguments[2] != "" &&
             arguments[3] == ""
           ) {
-            console.log("시도 널 축종 널");
-
             const result = await api.sidoType(this.sido, this.type, this.page);
             if (result.status == 200) {
               this.saveData(result);
@@ -223,7 +216,6 @@ export default {
             arguments[2] != "" &&
             arguments[3] == ""
           ) {
-            console.log("시도 널 축종 널");
             const result = await api.sidoType(this.sido, this.type, this.page);
 
             if (result.status == 200) {
@@ -238,7 +230,6 @@ export default {
             arguments[2] != "" &&
             arguments[3] == ""
           ) {
-            console.log("시도 구군 축종 널");
             const result = await api.sidoGugunType(
               this.sido,
               this.gugun,
@@ -258,7 +249,6 @@ export default {
             arguments[2] != "" &&
             arguments[3] != ""
           ) {
-            console.log("시도 널 축종 상태");
             const result = await api.sidoTypeStatus(
               this.sido,
               this.type,
@@ -277,7 +267,6 @@ export default {
             arguments[2] != "" &&
             arguments[3] != ""
           ) {
-            console.log("시도 구군 축종 상태");
             const result = await api.sidoGugunTypeStatus(
               this.sido,
               this.gugun,
@@ -298,7 +287,6 @@ export default {
             arguments[2] != "" &&
             arguments[3] == ""
           ) {
-            console.log("널 널 축종 널");
             const result = await api.type(this.type, this.page);
 
             if (result.status == 200) {
@@ -313,7 +301,6 @@ export default {
             arguments[2] != "" &&
             arguments[3] != ""
           ) {
-            console.log("널 널 축종 상태");
             const result = await api.typeStatus(
               this.type,
               this.status,
@@ -332,7 +319,6 @@ export default {
             arguments[2] == "" &&
             arguments[3] != ""
           ) {
-            console.log("시도 널 널 상태");
             const result = await api.sidoStatus(
               this.sido,
               this.status,
@@ -351,7 +337,6 @@ export default {
             arguments[2] == "" &&
             arguments[3] != ""
           ) {
-            console.log("시도 구군 널 상태");
             const result = await api.sidoGugunStatus(
               this.sido,
               this.gugun,
@@ -371,7 +356,6 @@ export default {
             arguments[2] == "" &&
             arguments[3] != ""
           ) {
-            console.log("널 널 널 상태");
             const result = await api.status(this.status, this.page);
 
             if (result.status == 200) {
@@ -401,7 +385,6 @@ export default {
       for (let btn of btnList) {
         btn.blur();
       }
-      // console.log(btnList);
     },
 
     seeDetails(id) {

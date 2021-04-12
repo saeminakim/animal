@@ -39,11 +39,10 @@
 </style>
 
 <script>
+import cookie from "./plugins/cookie";
 export default {
   name: "App",
   data: () => ({
-    //
-    drawer: false, // drawer의 기본 값
     selectedItem: 0,
     items: [
       {
@@ -67,25 +66,15 @@ export default {
       },
     ],
   }),
-
-  // computed: {
-  //   profile() {
-  //     return this.$store.state.profile.data;
-  //   },
-  // },
-
-  // mounted() {
-  //   console.log(this.$store.state.profile);
-  //   this.$store.dispatch("profile/setProfile");
-  // },
-
-  // methods: {
-  //   navigateTo(item) {
-  //     console.log(this.$route);
-  //     if (this.$route.path != item.path) {
-  //       this.$router.push(item.path);
-  //     }
-  //   },
-  // },
+  computed: {
+    profile() {
+      return this.$store.state.profile.data;
+    },
+  },
+  mounted() {
+    if (cookie.getSession() != undefined) {
+      this.$store.dispatch("profile/setProfile");
+    }
+  },
 };
 </script>
