@@ -111,7 +111,7 @@
 <script src="../assets/js/Common?t=1"></script>
 <script>
 import api from "../api/animal";
-// import common from "../assets/js/Common";
+import cookie from "../plugins/cookie";
 
 export default {
   name: "animalDetails",
@@ -143,7 +143,7 @@ export default {
       }
     },
     applyAdoption(id) {
-      if (this.$store.state.profile.date != undefined) {
+      if (cookie.getSession() != undefined) {
         this.$router.push({ name: "apply", params: { id } });
       } else {
         this.$router.push({ name: "applytype", params: { id } });

@@ -4,7 +4,11 @@
     <v-container>
       <v-row justify="center">
         <v-card class="mx-auto my-12" max-width="80%" flat>
-          <v-img src="../assets/animaltype.jpg" max-width="380"></v-img>
+          <v-img
+            src="../assets/animaltype.jpg"
+            alt="로그인타입선택"
+            max-width="380"
+          ></v-img>
           <v-card-title></v-card-title>
           <v-row justify="center">
             <v-col cols="auto"

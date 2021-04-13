@@ -47,8 +47,8 @@ export default {
       this.application.status = "취소신청";
 
       const id = this.application.id;
-      const result = await request.cancel(id, application);
-      console.log(result);
+      await request.cancel(id, application);
+      // console.log(result);
 
       return this.$router.push("/canceled");
     },
