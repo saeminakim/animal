@@ -150,6 +150,7 @@ export default {
       }
     },
     backToList() {
+      // return this.$router.push()
       return this.$router.go(-1);
     },
   },

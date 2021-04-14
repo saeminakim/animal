@@ -145,6 +145,10 @@ export default {
 
   mounted() {
     this.getList();
+    this.value = 1;
+
+    console.log("마운팅 되는건가?? ");
+    console.log(this.$router.params);
   },
 
   methods: {
@@ -156,7 +160,10 @@ export default {
 
           if (result.status == 200) {
             this.lists = result.data.content;
+            this.page = result.data.number + 1;
             this.totalPages = result.data.totalPages;
+
+            window.scrollTo(0, 0);
           }
         } catch (e) {
           alert("검색 결과가 없습니다.");
@@ -372,6 +379,7 @@ export default {
       this.lists = result.data.content;
       this.page = result.data.number + 1;
       this.totalPages = result.data.totalPages;
+      window.scrollTo(0, 0);
     },
 
     async handlePageChange(value) {
@@ -388,6 +396,11 @@ export default {
     },
 
     seeDetails(id) {
+      console.log("-----this.page-----");
+      console.log(this.page);
+      console.log("-----this.value-----");
+      console.log(this.value);
+
       this.$router.push({ name: "animalDetails", params: { id } });
     },
 
@@ -421,6 +434,7 @@ export default {
         this.getType();
       }
       this.page = 0;
+      this.value = 1;
       this.getList(this.sido, this.gugun, this.type, this.status, this.page);
     },
   },
