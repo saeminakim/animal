@@ -140,6 +140,7 @@ export default {
 
       if (result.status == 200) {
         this.lists = result.data;
+        window.scrollTo(0, 0);
       }
     },
     applyAdoption(id) {
