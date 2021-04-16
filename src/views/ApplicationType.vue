@@ -55,8 +55,8 @@ export default {
           `http://127.0.0.1:8081/#/apply/${this.id}`
         )}`;
       } else {
-        window.location.href = `http://animal-vueapp.s3-website.ap-northeast-2.amazonaws.com/signin.html?url=${encodeURIComponent(
-          `http://animal-vueapp.s3-website.ap-northeast-2.amazonaws.com/#/apply/${this.id}`
+        window.location.href = `https://d23j14apj1all0.cloudfront.net/signin.html?url=${encodeURIComponent(
+          `https://d23j14apj1all0.cloudfront.net/#/apply/${this.id}`
         )}`;
       }
     },

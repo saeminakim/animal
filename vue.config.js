@@ -19,9 +19,11 @@ module.exports = {
       deployPath: '/',
       acl: 'public-read',
       pwa: false,
-      enableCloudfront: false,
+      enableCloudfront: true,
       pluginVersion: '4.0.0-rc3',
-      uploadConcurrency: 5
+      uploadConcurrency: 5,
+      cloudfrontId: 'E3NOPK7WSZVYX2',
+      cloudfrontMatchers: '/index.html'
     }
   }
 }
