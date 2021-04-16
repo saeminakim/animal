@@ -146,9 +146,6 @@ export default {
   mounted() {
     this.getList();
     this.value = 1;
-
-    console.log("마운팅 되는건가?? ");
-    console.log(this.$router.params);
   },
 
   methods: {

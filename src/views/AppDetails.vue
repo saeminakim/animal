@@ -12,9 +12,9 @@
                     <v-icon color="orange"> mdi-paw </v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
-                    <v-list-item-title>
+                    <v-card-text>
                       신청번호 : {{ application.requestNo }}
-                    </v-list-item-title>
+                    </v-card-text>
                   </v-list-item-content>
                 </v-list-item>
                 <v-list-item>
@@ -22,9 +22,9 @@
                     <v-icon color="orange"> mdi-paw </v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
-                    <v-list-item-title>
+                    <v-card-text>
                       신청상태 : {{ application.status }}
-                    </v-list-item-title>
+                    </v-card-text>
                   </v-list-item-content>
                 </v-list-item>
                 <v-list-item>
@@ -32,9 +32,7 @@
                     <v-icon color="orange"> mdi-paw </v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
-                    <v-list-item-title>
-                      이름 : {{ application.name }}
-                    </v-list-item-title>
+                    <v-card-text> 이름 : {{ application.name }} </v-card-text>
                   </v-list-item-content>
                 </v-list-item>
                 <v-list-item>
@@ -42,9 +40,9 @@
                     <v-icon color="orange"> mdi-paw </v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
-                    <v-list-item-title>
+                    <v-card-text>
                       연락처 : {{ application.mobile }}
-                    </v-list-item-title>
+                    </v-card-text>
                   </v-list-item-content>
                 </v-list-item>
                 <v-list-item>
@@ -52,9 +50,9 @@
                     <v-icon color="orange"> mdi-paw </v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
-                    <v-list-item-title>
+                    <v-card-text>
                       이메일주소 : {{ application.email }}
-                    </v-list-item-title>
+                    </v-card-text>
                   </v-list-item-content>
                 </v-list-item>
                 <v-list-item>
@@ -62,9 +60,7 @@
                     <v-icon color="orange"> mdi-paw </v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
-                    <v-list-item-title>
-                      성별 : {{ application.gender }}
-                    </v-list-item-title>
+                    <v-card-text> 성별 : {{ application.gender }} </v-card-text>
                   </v-list-item-content>
                 </v-list-item>
                 <v-list-item>
@@ -72,9 +68,9 @@
                     <v-icon color="orange"> mdi-paw </v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
-                    <v-list-item-title>
+                    <v-card-text>
                       집주소 : {{ application.address }}
-                    </v-list-item-title>
+                    </v-card-text>
                   </v-list-item-content>
                 </v-list-item>
                 <v-list-item>
@@ -82,9 +78,7 @@
                     <v-icon color="orange"> mdi-paw </v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
-                    <v-list-item-title>
-                      직업 : {{ application.job }}
-                    </v-list-item-title>
+                    <v-card-text> 직업 : {{ application.job }} </v-card-text>
                   </v-list-item-content>
                 </v-list-item>
                 <v-list-item>
@@ -92,9 +86,9 @@
                     <v-icon color="orange"> mdi-paw </v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
-                    <v-list-item-title>
+                    <v-card-text>
                       가족구성원 : {{ application.familyMember }}
-                    </v-list-item-title>
+                    </v-card-text>
                   </v-list-item-content>
                 </v-list-item>
                 <v-list-item>
@@ -102,9 +96,9 @@
                     <v-icon color="orange"> mdi-paw </v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
-                    <v-list-item-title>
+                    <v-card-text>
                       가족 동의 여부 : {{ application.familyAgreed }}
-                    </v-list-item-title>
+                    </v-card-text>
                   </v-list-item-content>
                 </v-list-item>
                 <v-list-item>
@@ -112,9 +106,9 @@
                     <v-icon color="orange"> mdi-paw </v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
-                    <v-list-item-title>
+                    <v-card-text>
                       반려동물 유무 : {{ application.petAtHome }}
-                    </v-list-item-title>
+                    </v-card-text>
                   </v-list-item-content>
                 </v-list-item>
                 <v-list-item>
@@ -122,9 +116,9 @@
                     <v-icon color="orange"> mdi-paw </v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
-                    <v-list-item-title>
+                    <v-card-text>
                       반려동물 소개 : {{ application.petDetails }}
-                    </v-list-item-title>
+                    </v-card-text>
                   </v-list-item-content>
                 </v-list-item>
                 <v-list-item>
@@ -132,9 +126,9 @@
                     <v-icon color="orange"> mdi-paw </v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
-                    <v-list-item-title>
+                    <v-card-text>
                       주거형태 : {{ application.houseType }}
-                    </v-list-item-title>
+                    </v-card-text>
                   </v-list-item-content>
                 </v-list-item>
                 <v-list-item>
@@ -142,9 +136,9 @@
                     <v-icon color="orange"> mdi-paw </v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
-                    <v-list-item-title>
+                    <v-card-text>
                       입양희망이유 : {{ application.reason }}
-                    </v-list-item-title>
+                    </v-card-text>
                   </v-list-item-content>
                 </v-list-item>
               </v-list>

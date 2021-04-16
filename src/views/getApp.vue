@@ -32,10 +32,24 @@
           <v-card min-height="180" flat>
             <v-row justify="center" class="mt-10">
               <v-col cols="auto" class="mt-15">
-                <v-btn color="yellow" depressed large @click="getAppByKakao"
+                <v-btn
+                  color="yellow"
+                  depressed
+                  large
+                  @click="getAppByKakao"
+                  v-if="hasCookie"
                   >카카오로 조회 <v-icon>mdi-chat</v-icon>
-                </v-btn></v-col
-              >
+                </v-btn>
+                <v-btn
+                  color="orange"
+                  class="white--text"
+                  depressed
+                  large
+                  @click="getAppByKakao"
+                  v-else
+                  >내 입양신청서 보기 <v-icon>mdi-paw</v-icon>
+                </v-btn>
+              </v-col>
             </v-row>
           </v-card>
         </v-col>
@@ -69,6 +83,15 @@ export default {
     if (cookie.getSession() != undefined) {
       this.$store.dispatch("profile/setProfile");
     }
+  },
+  computed: {
+    hasCookie() {
+      if (cookie.getSession() == undefined) {
+        return true;
+      } else {
+        return false;
+      }
+    },
   },
 
   methods: {
