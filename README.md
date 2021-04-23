@@ -36,6 +36,6 @@
 ![main](https://user-images.githubusercontent.com/78783995/115802465-e18a3180-a419-11eb-9e35-d2e7c261fdd6.png) <br>
 
 * 입양신청서 조회<br>
-![localhost](https://user-images.githubusercontent.com/78783995/115803174-54e07300-a41b-11eb-981a-2e0809b6e0bd.png)
+<img src="https://user-images.githubusercontent.com/78783995/115803174-54e07300-a41b-11eb-981a-2e0809b6e0bd.png" width=700>
 
 
